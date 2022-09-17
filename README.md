@@ -1,5 +1,5 @@
-## Hello world - Minecraft Resource Pack edition
+## Minecraft Bedrock Edition projects
 
-That's right, Mark is building his first resource pack. It's gonna be a wild time.
+General repo for add-ons, mods, links, etc. for Minecraft Bedrock
 
 - [Getting started with add-on development for Bedrock Edition](https://learn.microsoft.com/en-us/minecraft/creator/documents/gettingstarted)
