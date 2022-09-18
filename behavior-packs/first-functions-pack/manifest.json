@@ -1,0 +1,24 @@
+{
+  "format_version": 2,
+  "header": {
+    "description": "Cooking with gas, heck yeah!",
+    "name": "Using functions",
+    "uuid": "688ac2cd-ee81-4f46-a062-86f3e48b555f",
+    "version": [1, 0, 0],
+    "min_engine_version": [1, 16, 0]
+  },
+  "modules": [
+    {
+      "description": "Functions are very cool",
+      "type": "data",
+      "uuid": "4e99a5f4-7696-4083-b437-ab166c6449f3",
+      "version": [1, 0, 0]
+    }
+  ],
+  "dependencies": [
+    {
+      "uuid": "f7cac561-8850-4440-bc4f-748eb05e07ae",
+      "version": [1, 0, 0]
+    }
+  ]
+}
