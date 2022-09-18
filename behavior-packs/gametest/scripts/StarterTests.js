@@ -20,5 +20,5 @@ function simpleMobTest(test) {
 GameTest.register("StarterTests", "simpleMobTest", simpleMobTest)
   .maxTicks(410)
   .structureName(
-    "startertests:glasspen" // use the glasspen.mcstructure file
+    "startertests:mediumglass" // use the mediumglass.mcstructure file
   );
