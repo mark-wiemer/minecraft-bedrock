@@ -1,0 +1,24 @@
+{
+  "format_version": 2,
+  "header": {
+    "description": "Totally wild cows out here",
+    "name": "Super Aggressive Cows",
+    "uuid": "f9c5ff7d-3e24-4b09-9346-99cb8a071a46",
+    "version": [1, 0, 0],
+    "min_engine_version": [1, 16, 0]
+  },
+  "modules": [
+    {
+      "description": "Molang is cool, isn't it?",
+      "type": "data",
+      "uuid": "976c8801-0061-4631-b3d6-b066986a578d",
+      "version": [1, 0, 0]
+    }
+  ],
+  "dependencies": [
+    {
+      "uuid": "80b586a6-04bc-490a-a1b5-66f7127b1f56",
+      "version": [1, 0, 0]
+    }
+  ]
+}
