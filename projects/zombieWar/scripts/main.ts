@@ -1,11 +1,13 @@
-import { Dimension, world } from "mojang-minecraft";
+import { BlockLocation, Dimension, world } from "mojang-minecraft";
 
 let tickIndex = 0;
 const inNeighborhood = false;
+const spawn = new BlockLocation(0, -59, 0);
+
+const locToString = (loc: Pick<BlockLocation, "x" | "y" | "z">): string => [loc.x, loc.y, loc.z].join(" ");
 
 const initialize = (overworld: Dimension) => {
-  overworld.runCommand("say Hello from Zombie War 3!");
-  overworld.runCommand("tp @p 0 -59 0");
+  overworld.runCommand(`tp @p ${locToString(spawn)}`);
 };
 
 const mainTick = () => {
