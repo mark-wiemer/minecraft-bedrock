@@ -19,6 +19,8 @@ These links are for Minecraft Bedrock Edition. Historically, mod support (AKA ad
 - [List and summary of commands (Minecraft fandom)](https://minecraft.fandom.com/wiki/Commands#List_and_summary_of_commands): Most advanced mods will be running some commands. This community-supported wiki is the best resource for learning each and every command
 - [Bedrock OSS](https://github.com/Bedrock-OSS): Bedrock OSS is a great centralized community around building Minecraft mods. The Discord is popular, the wiki is awesome, and the supported projects are top-notch. And it's getting better all the time!
 
+And remember -- be patient, ask for help, and always be curious! Modding is hard work, and it'll take a lot of time, energy, and boring research to create something awesome. But I promise it's worth it!
+
 ### Completed work
 
 Explore the repo to find which pack is used for each bit of work. Also explore the git history for more details.
