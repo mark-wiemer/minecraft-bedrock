@@ -1,6 +1,8 @@
 /**
  * Automatically builds the current project and adds it as a Minecraft Bedrock add-on!
  * No need to copy-paste files or work in that weird AppData com.mojang folder, this script does all the work for you :)
+ *
+ * Use `gulp watch` to always update on any change :) just leave the world and re-join to see updates
  */
 
 // === CONFIGURABLE VARIABLES
