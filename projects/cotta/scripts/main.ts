@@ -133,4 +133,5 @@ function spawnMobs() {
   }
 }
 
-world.events.tick.subscribe(gameTick);
+// Disable add-on by commenting out the line below
+// world.events.tick.subscribe(gameTick);
