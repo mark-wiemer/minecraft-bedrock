@@ -2,12 +2,12 @@ import { world } from "mojang-minecraft";
 
 let tickIndex = 0;
 
-function mainTick() {
+const mainTick = () => {
   tickIndex++;
 
   if (tickIndex === 100) {
-    world.getDimension("overworld").runCommand("say Hello from Zombie War!");
+    world.getDimension("overworld").runCommand("say Hello from Zombie War 2!");
   }
-}
+};
 
 world.events.tick.subscribe(mainTick);
