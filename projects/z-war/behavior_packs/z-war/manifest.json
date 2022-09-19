@@ -1,9 +1,9 @@
 {
   "format_version": 2,
   "header": {
-    "name": "My script behavior pack",
-    "description": "My behavior pack description",
-    "uuid": "14e467b4-e3aa-49d3-8352-f8439fd7b2ee",
+    "name": "Project Z-War",
+    "description": "Can you survive?",
+    "uuid": "4ec80d9e-3793-4975-99c0-2e6496845b75",
     "version": [0, 0, 1],
     "min_engine_version": [1, 16, 210]
   },
