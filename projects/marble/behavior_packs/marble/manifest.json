@@ -1,9 +1,9 @@
 {
   "format_version": 2,
   "header": {
-    "name": "__todo__",
-    "description": "__todo__",
-    "uuid": "__todo__copy_from_https://www.uuidgenerator.net__",
+    "name": "Project Marble",
+    "description": "Mark's test project to learn",
+    "uuid": "c8b1d99d-c227-48e4-a02a-5a256af044c9",
     "version": [0, 0, 1],
     "min_engine_version": [1, 16, 210]
   },

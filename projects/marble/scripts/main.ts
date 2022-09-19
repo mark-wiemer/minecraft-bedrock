@@ -6,7 +6,7 @@ function mainTick() {
   tickIndex++;
 
   if (tickIndex === 100) {
-    world.getDimension("overworld").runCommand("say Hello from __todo__!");
+    world.getDimension("overworld").runCommand("say Hello from my first project!!!!");
   }
 }
 
