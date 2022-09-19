@@ -6,7 +6,9 @@ const mainTick = () => {
   tickIndex++;
 
   if (tickIndex === 100) {
-    world.getDimension("overworld").runCommand("say Hello from Zombie War 2!");
+    const overworld = world.getDimension("overworld");
+    overworld.runCommand("say Hello from Zombie War 2!");
+    overworld.runCommand("tp @p 0 -59 0");
   }
 };
 
