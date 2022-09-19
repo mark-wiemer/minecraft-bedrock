@@ -8,7 +8,7 @@ Note this guide is meant for beginners to Minecraft add-on development, but peop
 
 ## Project initialization steps
 
-1. Copy and commit code from [initial commit for Project Marble](https://github.com/mark-wiemer/minecraft-bedrock/commit/77f8b51fd63808bd05e055d8d5c4352ba110b5d6) (adapted from [official docs](https://learn.microsoft.com/en-us/minecraft/creator/documents/scriptinggettingstarted#getting-started))
+1. Copy and commit code from [template folder](https://github.com/mark-wiemer/minecraft-bedrock/tree/0ee386414eae9672a39dbcd1bfb973605614dd2b/projects/marble) (adapted from [official docs](https://learn.microsoft.com/en-us/minecraft/creator/documents/scriptinggettingstarted#getting-started))
 1. Run `npm i`
 1. Replace **`__todo__`** values:
    1. Folder named `behavior_packs/__todo__` should change to your add-on name, e.g. `behavior_packs/marble`
