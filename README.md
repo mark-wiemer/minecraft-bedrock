@@ -8,28 +8,4 @@ General repo for add-ons, mods, links, etc. for Minecraft Bedrock
 
 Using GameTest framework to add functionality, not just tests.
 
-Blocked on Smelly API `npm run compile` command:
-
-```
-$  npm run compile "Chat Ranks","Chat Ranks" "Chat Ranks" 5.0.2
-
-> smelly-api@3.0.0 compile
-> node build/index.js Chat Ranks,Chat Ranks Chat Ranks 5.0.2
-
-node:events:491
-      throw er; // Unhandled 'error' event
-      ^
-
-Error: ENOENT: no such file or directory, open 'C:\Users\markw\repos\minecraft-bedrock\behavior-packs\smelly-pack\build\output\Chat Ranks v5.0.2.zip'
-Emitted 'error' event on WriteStream instance at:
-    at WriteStream.onerror (C:\Users\markw\repos\minecraft-bedrock\behavior-packs\smelly-pack\node_modules\readable-stream\lib\_stream_readable.js:640:52)
-    at WriteStream.emit (node:events:513:28)
-    at emitErrorNT (node:internal/streams/destroy:157:8)
-    at emitErrorCloseNT (node:internal/streams/destroy:122:3)
-    at processTicksAndRejections (node:internal/process/task_queues:83:21) {
-  errno: -4058,
-  code: 'ENOENT',
-  syscall: 'open',
-  path: 'C:\\Users\\markw\\repos\\minecraft-bedrock\\behavior-packs\\smelly-pack\\build\\output\\Chat Ranks v5.0.2.zip'
-}
-```
+Blocked on getting compiled pack to load in a version of Minecraft. "At least one of your behavior packs failed to load" in Minecraft Preview 1.19.40.21 after running `npm run compile "Chat Ranks","Chat Ranks" "Chat Ranks" 5.0.2` and moving the compiled `.mcpack` to `...\AppData\Local\Packages\Microsoft.MinecraftWindowsBeta_8wekyb3d8bbwe\LocalState\games\com.mojang\behavior_packs`, adding behavior pack (the only custom behavior pack) to the world, and joining world. Typing in chat just shows regular chat instead of chat ranks.

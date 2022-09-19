@@ -1,5 +1,11 @@
 # Smelly pack
 
+**This pack doesn't work yet. Check back later :)**
+
+Blocked on getting compiled pack to load in a version of Minecraft. "At least one of your behavior packs failed to load" in Minecraft Preview 1.19.40.21 after running `npm run compile "Chat Ranks","Chat Ranks" "Chat Ranks" 5.0.2` and moving the compiled `.mcpack` to `...\AppData\Local\Packages\Microsoft.MinecraftWindowsBeta_8wekyb3d8bbwe\LocalState\games\com.mojang\behavior_packs`, adding behavior pack (the only custom behavior pack) to the world, and joining world. Typing in chat just shows regular chat instead of chat ranks.
+
+---
+
 This add-on uses the [Smelly API v1](https://github.com/Smelly-API/Smelly-API/commit/562efb3453932901c304aaefd531d17999eb6c56) to add JavaScript logic. This unlocks advanced add-on features, I think :D
 
 The pack was created by me following [Smell of Curry](https://github.com/smell-of-curry)'s [YouTube guide](https://www.youtube.com/watch?v=VvJqDT8CClc). The first commit copies the Smelly API v3 code.
