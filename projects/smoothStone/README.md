@@ -26,3 +26,10 @@ Starts with [Build a gameplay experience with TypeScript](https://learn.microsof
      > Message "At least one of your resources or behavior packs failed to load." may appear. No impact at this point.
 1. Add `.gitignore`
 1. Commit
+1. Update `main.ts` with new message
+1. Run `gulp watch` in Bash
+1. Leave and re-join world
+
+- Expected: New message is shown, not old message
+
+Status: working!

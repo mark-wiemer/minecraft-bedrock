@@ -6,7 +6,7 @@ function mainTick() {
   tickIndex++;
 
   if (tickIndex === 100) {
-    world.getDimension("overworld").runCommand("say Hello starter!");
+    world.getDimension("overworld").runCommand("say Hello test2!");
   }
 }
 
