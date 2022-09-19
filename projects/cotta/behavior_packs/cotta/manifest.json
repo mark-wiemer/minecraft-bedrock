@@ -3,7 +3,7 @@
   "header": {
     "name": "Project Cotta",
     "description": "Following https://learn.microsoft.com/en-us/minecraft/creator/documents/scriptinggettingstarted",
-    "uuid": "14e467b4-e3aa-49d3-8352-f8439fd7b2ee",
+    "uuid": "67d76c92-c683-4abc-a272-2971b118c804",
     "version": [0, 0, 1],
     "min_engine_version": [1, 16, 210]
   },
