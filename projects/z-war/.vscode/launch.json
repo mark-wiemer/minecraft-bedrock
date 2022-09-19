@@ -7,7 +7,7 @@
       "name": "Debug with Minecraft",
       "mode": "listen",
       "localRoot": "${workspaceFolder}/scripts",
-      "sourceMapRoot": "${workspaceFolder}/build/behavior_packs/_z-warDebug",
+      "sourceMapRoot": "${workspaceFolder}/build/behavior_packs/_starterbpDebug",
       "remoteRoot": "${workspaceFolder}/build/behavior_packs/z-war",
       "port": 19144
     }

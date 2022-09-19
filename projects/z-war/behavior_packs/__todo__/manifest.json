@@ -1,9 +1,9 @@
 {
   "format_version": 2,
   "header": {
-    "name": "Project Z-War",
+    "name": "Z-War",
     "description": "Can you survive?",
-    "uuid": "4ec80d9e-3793-4975-99c0-2e6496845b75",
+    "uuid": "b3cd4457-ac8e-454e-b3ed-e9f54944a3cc",
     "version": [0, 0, 1],
     "min_engine_version": [1, 16, 210]
   },
