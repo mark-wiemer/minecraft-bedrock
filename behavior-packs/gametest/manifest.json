@@ -1,7 +1,7 @@
 {
   "format_version": 2,
   "header": {
-    "description": "Introductory tests for Minecraft GameTest Framework.",
+    "description": "Mark's first test.",
     "name": "Starter Hello World Tests",
     "uuid": "cc9adb04-2bc5-433b-afe6-85ddd0036f7e",
     "version": [0, 0, 1],

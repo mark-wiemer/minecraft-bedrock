@@ -1,5 +1,5 @@
 import * as GameTest from "mojang-gametest";
-import { BlockLocation } from "mojang-minecraft";
+import { BlockLocation, world } from "mojang-minecraft";
 
 function simpleMobTest(test) {
   const attackerId = "fox";
@@ -17,8 +17,13 @@ function simpleMobTest(test) {
 }
 
 // Registration code for our test
-GameTest.register("StarterTests", "simpleMobTest", simpleMobTest)
+GameTest.register("MarksTest", "simpleMobTest", simpleMobTest)
   .maxTicks(410)
   .structureName(
     "startertests:mediumglass" // use the mediumglass.mcstructure file
   );
+
+// Send hello world to everyone before any chat message!
+world.events.beforeChat.subscribe((bce) =>
+  world.getDimension("overworld").runCommand(`tellraw @a hello world!`)
+);
