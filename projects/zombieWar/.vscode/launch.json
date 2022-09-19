@@ -8,7 +8,7 @@
       "mode": "listen",
       "localRoot": "${workspaceFolder}/scripts",
       "sourceMapRoot": "${workspaceFolder}/build/behavior_packs/_starterbpDebug",
-      "remoteRoot": "${workspaceFolder}/build/behavior_packs/z-war",
+      "remoteRoot": "${workspaceFolder}/build/behavior_packs/zombieWar",
       "port": 19144
     }
   ]

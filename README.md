@@ -18,4 +18,4 @@ Explore the repo to find which pack is used for each bit of work. Also explore t
 
 ### Current work
 
-- Building an awesome Zombie Fighting add-on! See [Project Z-War](./projects/z-war/README.md)
+- Building an awesome Zombie Fighting add-on! See [Project Z-War](./projects/zombieWar/README.md)
