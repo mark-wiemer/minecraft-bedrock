@@ -2,8 +2,6 @@
 
 General repo for add-ons, mods, links, etc. for Minecraft Bedrock
 
-- [Getting started with add-on development for Bedrock Edition](https://learn.microsoft.com/en-us/minecraft/creator/documents/gettingstarted)
-
 ## How to build Minecraft mods
 
 Ever wanted to mod Minecraft, but not sure where to get started? Here are some links I found that were super helpful for me!
