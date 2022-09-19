@@ -3,7 +3,7 @@
   "header": {
     "name": "__todo__",
     "description": "__todo__",
-    "uuid": "__todo__copy_from_https://www.uuidgenerator.net__",
+    "uuid": "__todo__", // copy from https://www.uuidgenerator.net then remove this comment
     "version": [0, 0, 1],
     "min_engine_version": [1, 16, 210]
   },
