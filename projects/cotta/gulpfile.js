@@ -1,3 +1,8 @@
+/**
+ * Automatically builds the current project and adds it as a Minecraft Bedrock add-on!
+ * No need to copy-paste files or work in that weird AppData com.mojang folder, this script does all the work for you :)
+ */
+
 // === CONFIGURABLE VARIABLES
 
 const bpfoldername = "cotta";
