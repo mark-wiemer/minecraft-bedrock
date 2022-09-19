@@ -1,9 +1,9 @@
 {
-  "format_version": "1.17.100",
+  "format_version": "1.18.2",
   "minecraft:entity": {
     "description": {
-      "identifier": "binocraft:floating_text",
-      "is_spawnable": true,
+      "identifier": "database:database",
+      "is_spawnable": false,
       "is_summonable": true,
       "is_experimental": false
     },
@@ -14,12 +14,12 @@
     },
     "components": {
       "minecraft:type_family": {
-        "family": ["binocraft"]
+        "family": ["database"]
+      },
+      "minecraft:tick_world": {
+        "never_despawn": true
       },
       "minecraft:fire_immune": true,
-      "minecraft:movement": {
-        "value": 0
-      },
       "minecraft:damage_sensor": {
         "triggers": [
           {
@@ -34,7 +34,7 @@
       },
       "minecraft:nameable": {
         "allow_name_tag_renaming": true,
-        "always_show": true
+        "always_show": false
       },
       "minecraft:collision_box": {
         "width": -1,
@@ -68,7 +68,9 @@
     "events": {
       "kill": {
         "add": {
-          "component_groups": ["kill"]
+          "component_groups": [
+            "kill"
+          ]
         }
       }
     }

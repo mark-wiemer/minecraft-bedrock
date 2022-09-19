@@ -1,6 +1,6 @@
 # Smelly pack
 
-This add-on uses the Smelly API to add JavaScript logic. This unlocks advanced features, I think :D
+This add-on uses the [Smelly API v1](https://github.com/Smelly-API/Smelly-API/commit/562efb3453932901c304aaefd531d17999eb6c56) to add JavaScript logic. This unlocks advanced add-on features, I think :D
 
 The pack was created by me following [Smell of Curry](https://github.com/smell-of-curry)'s [YouTube guide](https://www.youtube.com/watch?v=VvJqDT8CClc). The first commit copies the Smelly API v3 code.
 
