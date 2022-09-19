@@ -1,3 +1,8 @@
+/**
+ * Compile a plugin using `npm run compile`.
+ * Pass no args to compile all plugins :)
+ */
+
 const JSZip = require("jszip");
 const fs = require("fs");
 const { v4 } = require("uuid");
