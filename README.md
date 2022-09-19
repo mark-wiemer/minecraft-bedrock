@@ -12,7 +12,8 @@ Explore the repo to find which pack is used for each bit of work. Also explore t
 - Sample behavior pack with Molang
 - Sample behavior pack with `mcfunction` (in-game commands)
 - Using GameTest framework to add functionality, not just tests. See [the Smelly pack](./behavior-packs/smelly-pack/README.md)
+- [Using TypeScript](https://learn.microsoft.com/en-us/minecraft/creator/documents/scriptinggettingstarted), see [Project Cotta](./projects/cotta/README.md)
 
 ### Current work
 
-- [Using TypeScript](https://learn.microsoft.com/en-us/minecraft/creator/documents/scriptinggettingstarted), see [Project Cotta](./projects/cotta/README.md)
+- Building an awesome Zombie Fighting add-on! See [Project Z-War](./projects/z-war/README.md)
