@@ -78,6 +78,11 @@ function gameTick() {
       checkForTerracotta();
     }
   }
+
+  let spawnInterval = Math.ceil(200 / ((score + 1) / 3));
+  if (curTick > START_TICK && curTick % spawnInterval === 0) {
+    spawnMobs();
+  }
 }
 
 function spawnNewTerracotta() {
@@ -108,6 +113,23 @@ function checkForTerracotta() {
     overworld.runCommand("scoreboard players set @p score " + score);
     overworld.runCommand("say You broke the terracotta! Creating new terracotta in a few seconds.");
     cottaZ = -1;
+  }
+}
+
+function spawnMobs() {
+  let overworld = world.getDimension("overworld");
+
+  // spawn mobs = create 1-2 mobs
+  let spawnMobCount = Math.floor(Math.random() * 2) + 1;
+
+  for (let j = 0; j < spawnMobCount; j++) {
+    let zombieX = Math.floor(Math.random() * (ARENA_X_SIZE - 2)) - ARENA_X_SIZE / 2;
+    let zombieZ = Math.floor(Math.random() * (ARENA_Z_SIZE - 2)) - ARENA_Z_SIZE / 2;
+
+    overworld.spawnEntity(
+      "minecraft:zombie",
+      new BlockLocation(zombieX + ARENA_X_OFFSET, 1 + ARENA_Y_OFFSET, zombieZ + ARENA_Z_OFFSET)
+    );
   }
 }
 
