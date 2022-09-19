@@ -1,6 +1,6 @@
 ## Template
 
-**todo** replace this readme with your own!
+`__todo__` replace this readme with a description of your project!
 
 This isn't a project. It's a template for a project that uses TypeScript!
 
