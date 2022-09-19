@@ -33,7 +33,7 @@ function initializeBreakTheTerracotta() {
   overworld.runCommand("give @p dirt 64");
 
   overworld.runCommand("scoreboard players set @p score 0");
-  overworld.runCommand("say BREAK THE TERRACOTTA!");
+  overworld.runCommand("say wreck THE TERRACOTTA!");
 
   Utilities.fillBlock(
     MinecraftBlockTypes.air,
@@ -134,4 +134,4 @@ function spawnMobs() {
 }
 
 // Disable add-on by commenting out the line below
-// world.events.tick.subscribe(gameTick);
+world.events.tick.subscribe(gameTick);
