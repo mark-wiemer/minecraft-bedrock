@@ -9,8 +9,8 @@ import {
   world,
   BlockLocation,
 } from "mojang-minecraft";
-
-const modName = "Zombie War";
+import { addonName } from "./config.js";
+import { trace, warn, say, tryTo } from "./utils";
 
 /** The current tick (used to track time in game) */
 let tickIndex = 0;
@@ -28,8 +28,6 @@ const equipTime = clearTime + 0.5 * seconds;
 const informPlayerTime = equipTime + 5 * seconds;
 
 const spawn = new BlockLocation(0, -59, 0);
-const shouldTrace = false;
-const shouldWarn = true;
 let score = 0;
 
 /**
@@ -37,26 +35,6 @@ let score = 0;
  * e.g. locToString({ x: 1, y: 2, z: 3 }) === "1 2 3"
  */
 const locToString = (loc: { x: number; y: number; z: number }): string => [loc.x, loc.y, loc.z].join(" ");
-
-/** Shorthand for `world.getDimension("overworld").runCommand("say" + message)` */
-const say = (message: string): void => {
-  world.getDimension("overworld").runCommand(`say ${message}`);
-};
-
-/** `say` if `shouldTrace`, else do nothing */
-const trace = (x: string): void => {
-  if (shouldTrace) say(x);
-};
-
-/** `say` if `shouldWarn`, else do nothing */
-const warn = (x: string): void => {
-  if (shouldWarn) say(x);
-};
-
-/** Prefix `x` with error label, then say `x` */
-const err = (x: string): void => {
-  say(`[ERR ${modName}]: ${x}`);
-};
 
 /**
  * Audit and run the command.
@@ -118,7 +96,7 @@ const equipPlayer = (player: Player): void => {
  */
 const initialize = (player: Player) => {
   const dim = player.dimension;
-  say(`Welcome to ${modName}!`);
+  say(`Welcome to ${addonName}!`);
   initScore(dim, player);
 
   // Lock time to midnight
@@ -128,15 +106,8 @@ const initialize = (player: Player) => {
 
 /** Spawn a zombie 10 blocks above the player. Watch out! */
 const spawnZombie = (player: Player) => {
+  const playerPos = tryTo((player: Player) => player.location, [player], "Failed to get player location");
   const dim = player.dimension;
-  const errorMessage = "Failed to get player location";
-  let playerPos: mcLocation | undefined = undefined;
-  try {
-    playerPos = player.location;
-  } catch (e) {
-    err(errorMessage);
-  }
-  if (!playerPos) throw new Error(errorMessage);
   dim.spawnEntity("minecraft:zombie", new mcLocation(playerPos.x, playerPos.y + 10, playerPos.z));
 };
 
@@ -145,26 +116,19 @@ const spawnZombie = (player: Player) => {
  * @param dim The dimension the player is in
  * @returns The player, if found. Else `undefined`
  */
-const getPlayer = (dim: Dimension): Player => {
-  const errorMessage = `Failed to find player`;
-  let player1: Player | undefined = undefined;
-  try {
-    const playerIterator = dim.getPlayers({ closest: 1 } as unknown as EntityQueryOptions);
-    player1 = [...playerIterator][0];
-  } catch (e) {
-    err(errorMessage);
-    throw e;
-  }
-  if (player1) return player1;
-  else throw new Error(errorMessage);
-};
+const getPlayer = (dim: Dimension): Player =>
+  tryTo(
+    (dim: Dimension): Player => [...dim.getPlayers({ closest: 1 } as unknown as EntityQueryOptions)][0],
+    [dim],
+    `Failed to find player`
+  );
 
 const mainTick = () => {
   tickIndex++;
   const overworld = world.getDimension("overworld");
 
   if (tickIndex === startTime) {
-    trace(`${modName} starting up...`);
+    trace(`${addonName} starting up...`);
     const overworld = world.getDimension("overworld");
     let player1 = getPlayer(overworld);
     initialize(player1);
