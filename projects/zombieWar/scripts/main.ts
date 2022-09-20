@@ -1,6 +1,7 @@
 import {
   BlockLocation,
   Dimension,
+  Entity,
   EntityHealthComponent,
   EntityHurtEvent,
   EntityQueryOptions,
@@ -21,6 +22,7 @@ const informPlayerTime = startTime + 15 * seconds;
 const spawn = new BlockLocation(0, -59, 0);
 const shouldTrace = false;
 const shouldWarn = true;
+let score = 0;
 
 /**
  * Convert a block location to a command-friendly string representation
@@ -59,7 +61,7 @@ const initScore = (dim: Dimension, player: Player): void => {
     cmd(dim, 'scoreboard objectives add score dummy "Kills"');
   } catch (e) {}
   cmd(dim, "scoreboard objectives setdisplay sidebar score");
-  cmd(dim, "scoreboard players set @p score 0");
+  cmd(dim, `scoreboard players set @p score ${score}`);
 };
 
 /**
@@ -131,9 +133,29 @@ const mainTick = () => {
   }
 };
 
+const isZombie = (entity: Entity): boolean => entity.id.includes("zombie");
+
 const onEntityHurt = (hurtEvent: EntityHurtEvent): void => {
-  // e.g. minecraft:player hurt minecraft:zombie
-  say(`${hurtEvent.damagingEntity.id} hurt ${hurtEvent.hurtEntity.id}`);
+  const victim = hurtEvent.hurtEntity;
+
+  let victimHealth = NaN;
+  try {
+    victimHealth = (victim.getComponent("minecraft:health") as EntityHealthComponent).current;
+    trace(victimHealth.toString());
+  } catch {
+    warn(`Couldn't get hurt entity health`);
+  }
+
+  if (victimHealth <= 0 && isZombie(victim)) {
+    /** The name of the attacking player. If the attacker is not a player, this is nullish. */
+    const attackingPlayerName: string | undefined | null = (hurtEvent.damagingEntity as Player)?.name;
+    trace(attackingPlayerName ?? "kill not done by player");
+    if (attackingPlayerName) {
+      score++;
+      const overworld = world.getDimension("overworld");
+      cmd(overworld, `scoreboard players set @p score ${score}`);
+    }
+  }
 };
 
 world.events.tick.subscribe(mainTick);
