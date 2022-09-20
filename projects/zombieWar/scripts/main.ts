@@ -1,21 +1,21 @@
 import {
-  Location as mcLocation, // separate from default JS Location
   Dimension,
-  Entity,
   EntityHealthComponent,
   EntityHurtEvent,
-  EntityQueryOptions,
   Player,
   world,
   BlockLocation,
+  World,
 } from "mojang-minecraft";
 import { addonName } from "./config.js";
-import { trace, warn, say, tryTo, isZombie } from "./utils";
+import { trace, warn, say, tryTo, zombieDied, attackingPlayerName, getPlayer, spawnZombie } from "./utils";
 
 /** The current tick (used to track time in game) */
 let tickIndex = 0;
 /** Ticks per second */
 const seconds = 20;
+
+// Note multiplication with decimals does not always result in whole numbers due to base 2 vs base 10
 
 /** When to start the war */
 // Should be at least 5 seconds to account for player join delay
@@ -24,8 +24,16 @@ const startTime = 5 * seconds;
 const clearTime = startTime + 0.5 * seconds;
 /** When to equip the player */
 const equipTime = clearTime + 0.5 * seconds;
+/** When to clear player's hunger */
+const emptyHungerTime = equipTime + 0.5 * seconds;
+/** How long to apply the hunger effect, in seconds */
+const emptyHungerDuration = 3;
+/** When to fill player's hunger */
+const fillHungerTime = emptyHungerTime + emptyHungerDuration * seconds;
+/** How long to apply the hunger effect, in seconds */
+const fillHungerDuration = 3;
 /** When to warn the player */
-const informPlayerTime = equipTime + 5 * seconds;
+const informPlayerTime = fillHungerTime + (fillHungerDuration + 2) * seconds;
 
 const spawn = new BlockLocation(0, -59, 0);
 let score = 0;
@@ -85,8 +93,6 @@ const equipPlayer = (player: Player): void => {
   } catch {
     warn("Failed to reset player health");
   }
-
-  // TODO reset hunger
 };
 
 /**
@@ -104,42 +110,40 @@ const initialize = (player: Player) => {
   cmd(dim, "time set midnight");
 };
 
-/** Spawn a zombie 10 blocks above the player. Watch out! */
-const spawnZombie = (player: Player) => {
-  const playerPos = tryTo((player: Player) => player.location, [player], "Failed to get player location");
-  const dim = player.dimension;
-  dim.spawnEntity("minecraft:zombie", new mcLocation(playerPos.x, playerPos.y + 10, playerPos.z));
+/** Haha, get it? Like overworld but it's over(world). */
+const over = (world: World): Dimension => world.getDimension("overworld");
+
+const emptyHunger = (player: Player) => {
+  player.dimension.runCommand(`effect ${player.name} hunger ${emptyHungerDuration} 255`);
 };
 
-/**
- * Get the current player. Designed for single player.
- * @param dim The dimension the player is in
- * @returns The player, if found. Else `undefined`
- */
-const getPlayer = (dim: Dimension): Player =>
-  tryTo(
-    (dim: Dimension): Player => [...dim.getPlayers({ closest: 1 } as unknown as EntityQueryOptions)][0],
-    [dim],
-    `Failed to find player`
-  );
+const fillHunger = (player: Player) => {
+  player.dimension.runCommand(`effect ${player.name} saturation ${fillHungerDuration} 255`);
+};
 
 const mainTick = () => {
   tickIndex++;
-  const overworld = world.getDimension("overworld");
 
   if (tickIndex === startTime) {
     trace(`${addonName} starting up...`);
-    const overworld = world.getDimension("overworld");
-    let player1 = getPlayer(overworld);
+    let player1 = getPlayer(over(world));
     initialize(player1);
   }
 
   if (tickIndex === clearTime) {
-    resetPlayer(getPlayer(overworld));
+    resetPlayer(getPlayer(over(world)));
   }
 
   if (tickIndex === equipTime) {
-    equipPlayer(getPlayer(overworld));
+    equipPlayer(getPlayer(over(world)));
+  }
+
+  if (tickIndex === emptyHungerTime) {
+    emptyHunger(getPlayer(over(world)));
+  }
+
+  if (tickIndex === fillHungerTime) {
+    fillHunger(getPlayer(over(world)));
   }
 
   if (tickIndex === informPlayerTime) {
@@ -148,28 +152,17 @@ const mainTick = () => {
 
   // Spawn zombie every 10 seconds
   if (tickIndex % (10 * seconds) === 0) {
-    spawnZombie(getPlayer(overworld));
+    spawnZombie(getPlayer(over(world)));
   }
 };
 
 const onEntityHurt = (hurtEvent: EntityHurtEvent): void => {
-  const victim = hurtEvent.hurtEntity;
-
-  let victimHealth = NaN;
-  try {
-    victimHealth = (victim.getComponent("minecraft:health") as EntityHealthComponent).current;
-  } catch {
-    warn(`Couldn't get hurt entity health`);
-  }
-
-  if (victimHealth <= 0 && isZombie(victim)) {
+  if (zombieDied(hurtEvent)) {
     /** The name of the attacking player. If the attacker is not a player, this is nullish. */
-    const attackingPlayerName: string | undefined | null = (hurtEvent.damagingEntity as Player)?.name;
-    trace(attackingPlayerName ?? "kill not done by player");
-    if (attackingPlayerName) {
+    const name: string = attackingPlayerName(hurtEvent);
+    if (name) {
       score++;
-      const overworld = world.getDimension("overworld");
-      cmd(overworld, `scoreboard players set ${attackingPlayerName} score ${score}`);
+      cmd(over(world), `scoreboard players set ${name} score ${score}`);
     }
   }
 };

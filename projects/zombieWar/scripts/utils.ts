@@ -1,4 +1,13 @@
-import { Entity, world } from "mojang-minecraft";
+import {
+  Location as mcLocation, // separate from default JS Location
+  Dimension,
+  Entity,
+  EntityHealthComponent,
+  EntityHurtEvent,
+  EntityQueryOptions,
+  Player,
+  world,
+} from "mojang-minecraft";
 import { addonName, shouldTrace, shouldWarn } from "./config";
 
 /** Shorthand for `world.getDimension("overworld").runCommand("say" + message)` */
@@ -42,4 +51,45 @@ export const isZombie = (entity: Pick<Entity, "id">): boolean => {
     warn(`Couldn't get entity ID`);
   }
   return false;
+};
+
+export const zombieDied = (hurtEvent: EntityHurtEvent): boolean => {
+  const victim = hurtEvent.hurtEntity;
+
+  let victimHealth = NaN;
+  try {
+    victimHealth = (victim.getComponent("minecraft:health") as EntityHealthComponent).current;
+  } catch {
+    warn(`Couldn't get hurt entity health`);
+  }
+
+  return victimHealth <= 0 && isZombie(victim);
+};
+
+/** Returns name of player that dealt killing blow, else empty string. */
+export const attackingPlayerName = (hurtEvent: EntityHurtEvent): string => {
+  try {
+    return (hurtEvent.damagingEntity as Player)?.name;
+  } catch {
+    return "";
+  }
+};
+
+/**
+ * Get the current player. Designed for single player.
+ * @param dim The dimension the player is in
+ * @returns The player, if found. Else `undefined`
+ */
+export const getPlayer = (dim: Dimension): Player =>
+  tryTo(
+    (dim: Dimension): Player => [...dim.getPlayers({ closest: 1 } as unknown as EntityQueryOptions)][0],
+    [dim],
+    `Failed to find player`
+  );
+
+/** Spawn a zombie 10 blocks above the player. Watch out! */
+export const spawnZombie = (player: Player) => {
+  const playerPos = tryTo((player: Player) => player.location, [player], "Failed to get player location");
+  const dim = player.dimension;
+  dim.spawnEntity("minecraft:zombie", new mcLocation(playerPos.x, playerPos.y + 10, playerPos.z));
 };
