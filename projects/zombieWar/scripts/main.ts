@@ -60,7 +60,7 @@ const initScore = (dim: Dimension, player: Player): void => {
     cmd(dim, 'scoreboard objectives add score dummy "Kills"');
   } catch (e) {}
   cmd(dim, "scoreboard objectives setdisplay sidebar score");
-  cmd(dim, `scoreboard players set @p score ${score}`);
+  cmd(dim, `scoreboard players set ${player.name} score ${score}`);
 };
 
 /**
