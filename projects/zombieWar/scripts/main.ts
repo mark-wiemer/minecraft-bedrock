@@ -1,5 +1,5 @@
 import {
-  BlockLocation,
+  Location as mcLocation, // separate from default JS Location
   Dimension,
   Entity,
   EntityHealthComponent,
@@ -7,6 +7,8 @@ import {
   EntityQueryOptions,
   Player,
   world,
+  BlockLocation,
+  PlayerJoinEvent,
 } from "mojang-minecraft";
 
 const modName = "Zombie War";
@@ -15,10 +17,16 @@ const modName = "Zombie War";
 let tickIndex = 0;
 /** Ticks per second */
 const seconds = 20;
+
 /** When to start the war */
-const startTime = 5 * seconds;
+const startTime = 1 * seconds;
+/** When to reset the player */
+const clearTime = startTime + 0.5 * seconds;
+/** When to equip the player */
+const equipTime = clearTime + 0.5 * seconds;
 /** When to warn the player */
-const informPlayerTime = startTime + 15 * seconds;
+const informPlayerTime = equipTime + 5 * seconds;
+
 const spawn = new BlockLocation(0, -59, 0);
 const shouldTrace = false;
 const shouldWarn = true;
@@ -28,9 +36,9 @@ let score = 0;
  * Convert a block location to a command-friendly string representation
  * e.g. locToString({ x: 1, y: 2, z: 3 }) === "1 2 3"
  */
-const locToString = (loc: Pick<BlockLocation, "x" | "y" | "z">): string => [loc.x, loc.y, loc.z].join(" ");
+const locToString = (loc: { x: number; y: number; z: number }): string => [loc.x, loc.y, loc.z].join(" ");
 
-/** Shorthand for `overworld.runCommand("say" + message)` */
+/** Shorthand for `world.getDimension("overworld").runCommand("say" + message)` */
 const say = (message: string): void => {
   world.getDimension("overworld").runCommand(`say ${message}`);
 };
@@ -43,6 +51,11 @@ const trace = (x: string): void => {
 /** `say` if `shouldWarn`, else do nothing */
 const warn = (x: string): void => {
   if (shouldWarn) say(x);
+};
+
+/** Prefix `x` with error label, then say `x` */
+const err = (x: string): void => {
+  say(`[ERR ${modName}]: ${x}`);
 };
 
 /**
@@ -70,7 +83,8 @@ const initScore = (dim: Dimension, player: Player): void => {
  * - Replace inventory with wooden sword
  * - Survival mode only
  */
-const resetPlayer = (dim: Dimension, player: Player): void => {
+const resetPlayer = (player: Player): void => {
+  const dim = player.dimension;
   const playerName = player.name;
 
   cmd(dim, `tp ${playerName} ${locToString(spawn)}`);
@@ -78,6 +92,12 @@ const resetPlayer = (dim: Dimension, player: Player): void => {
 
   // Reset inventory
   cmd(dim, `clear ${playerName}`);
+};
+
+const equipPlayer = (player: Player): void => {
+  const dim = player.dimension;
+  const playerName = player.name;
+
   cmd(dim, `give ${playerName} wooden_sword`);
   cmd(dim, `give ${playerName} cooked_beef`);
 
@@ -93,43 +113,80 @@ const resetPlayer = (dim: Dimension, player: Player): void => {
 
 /**
  * Create starting conditions for the war.
- * - Reset player position, inventory, health, gamemode, score
+ * - Reset score
  * - Lock time to midnight
  */
-const initialize = (dim: Dimension, player: Player) => {
+const initialize = (player: Player) => {
+  const dim = player.dimension;
   say(`Welcome to ${modName}!`);
   initScore(dim, player);
 
   // Lock time to midnight
   cmd(dim, "alwaysday true");
   cmd(dim, "time set midnight");
+};
 
-  resetPlayer(dim, player);
+/** Spawn a zombie 10 blocks above the player. Watch out! */
+const spawnZombie = (player: Player) => {
+  const dim = player.dimension;
+  const errorMessage = "Failed to get player location";
+  let playerPos: mcLocation | undefined = undefined;
+  try {
+    playerPos = player.location;
+  } catch (e) {
+    err(errorMessage);
+  }
+  if (!playerPos) throw new Error(errorMessage);
+  dim.spawnEntity("minecraft:zombie", new mcLocation(playerPos.x, playerPos.y + 10, playerPos.z));
+};
+
+/**
+ * Get the current player. Designed for single player.
+ * @param dim The dimension the player is in
+ * @returns The player, if found. Else `undefined`
+ */
+const getPlayer = (dim: Dimension): Player => {
+  const errorMessage = `Failed to find player`;
+  let player1: Player | undefined = undefined;
+  try {
+    const playerIterator = dim.getPlayers({ closest: 1 } as unknown as EntityQueryOptions);
+    for (const player of playerIterator) {
+      player1 = player;
+    }
+  } catch (e) {
+    err(errorMessage);
+    throw e;
+  }
+  if (player1) return player1;
+  else throw new Error(errorMessage);
 };
 
 const mainTick = () => {
   tickIndex++;
+  const overworld = world.getDimension("overworld");
 
-  // If it's time to start the war...
   if (tickIndex === startTime) {
     trace(`${modName} starting up...`);
     const overworld = world.getDimension("overworld");
-    // Get the closes player's name
-    let player1: Player | null = null;
-    try {
-      const playerIterator = overworld.getPlayers({ closest: 1 } as unknown as EntityQueryOptions);
-      for (const player of playerIterator) {
-        player1 = player;
-      }
-    } catch {
-      say(`${modName} crashed while finding nearest player to spawn`);
-    }
-    // And initialize the war!
-    if (player1) initialize(overworld, player1);
+    let player1 = getPlayer(overworld);
+    initialize(player1);
+  }
+
+  if (tickIndex === clearTime) {
+    resetPlayer(getPlayer(overworld));
+  }
+
+  if (tickIndex === equipTime) {
+    equipPlayer(getPlayer(overworld));
   }
 
   if (tickIndex === informPlayerTime) {
     say("Survive.");
+  }
+
+  // Spawn zombie every 10 seconds
+  if (tickIndex % (10 * seconds) === 0) {
+    spawnZombie(getPlayer(overworld));
   }
 };
 
@@ -141,7 +198,6 @@ const onEntityHurt = (hurtEvent: EntityHurtEvent): void => {
   let victimHealth = NaN;
   try {
     victimHealth = (victim.getComponent("minecraft:health") as EntityHealthComponent).current;
-    trace(victimHealth.toString());
   } catch {
     warn(`Couldn't get hurt entity health`);
   }
@@ -153,7 +209,7 @@ const onEntityHurt = (hurtEvent: EntityHurtEvent): void => {
     if (attackingPlayerName) {
       score++;
       const overworld = world.getDimension("overworld");
-      cmd(overworld, `scoreboard players set @p score ${score}`);
+      cmd(overworld, `scoreboard players set ${attackingPlayerName} score ${score}`);
     }
   }
 };
