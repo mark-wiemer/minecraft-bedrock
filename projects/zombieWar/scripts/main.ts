@@ -10,7 +10,7 @@ import {
   BlockLocation,
 } from "mojang-minecraft";
 import { addonName } from "./config.js";
-import { trace, warn, say, tryTo } from "./utils";
+import { trace, warn, say, tryTo, isZombie } from "./utils";
 
 /** The current tick (used to track time in game) */
 let tickIndex = 0;
@@ -151,8 +151,6 @@ const mainTick = () => {
     spawnZombie(getPlayer(overworld));
   }
 };
-
-const isZombie = (entity: Entity): boolean => entity.id.includes("zombie");
 
 const onEntityHurt = (hurtEvent: EntityHurtEvent): void => {
   const victim = hurtEvent.hurtEntity;

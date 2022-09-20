@@ -1,4 +1,4 @@
-import { world } from "mojang-minecraft";
+import { Entity, world } from "mojang-minecraft";
 import { addonName, shouldTrace, shouldWarn } from "./config";
 
 /** Shorthand for `world.getDimension("overworld").runCommand("say" + message)` */
@@ -33,4 +33,13 @@ export const tryTo = <T extends any[], R>(callback: (...args: T) => R, args: T, 
     err(msg);
     throw e;
   }
+};
+
+export const isZombie = (entity: Pick<Entity, "id">): boolean => {
+  try {
+    return entity.id.includes("zombie");
+  } catch {
+    warn(`Couldn't get entity ID`);
+  }
+  return false;
 };
