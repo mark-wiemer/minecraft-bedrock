@@ -8,7 +8,7 @@ import {
   World,
 } from "mojang-minecraft";
 import { addonName } from "./config.js";
-import { trace, warn, say, tryTo, zombieDied, attackingPlayerName, getPlayer, spawnZombie } from "./utils";
+import { trace, warn, say, zombieDied, attackingPlayerName, getPlayer, spawnZombie } from "./utils";
 
 /** The current tick (used to track time in game) */
 let tickIndex = 0;
