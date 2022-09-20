@@ -8,7 +8,6 @@ import {
   Player,
   world,
   BlockLocation,
-  PlayerJoinEvent,
 } from "mojang-minecraft";
 
 const modName = "Zombie War";
@@ -19,7 +18,8 @@ let tickIndex = 0;
 const seconds = 20;
 
 /** When to start the war */
-const startTime = 1 * seconds;
+// Should be at least 5 seconds to account for player join delay
+const startTime = 5 * seconds;
 /** When to reset the player */
 const clearTime = startTime + 0.5 * seconds;
 /** When to equip the player */
@@ -150,9 +150,7 @@ const getPlayer = (dim: Dimension): Player => {
   let player1: Player | undefined = undefined;
   try {
     const playerIterator = dim.getPlayers({ closest: 1 } as unknown as EntityQueryOptions);
-    for (const player of playerIterator) {
-      player1 = player;
-    }
+    player1 = [...playerIterator][0];
   } catch (e) {
     err(errorMessage);
     throw e;
