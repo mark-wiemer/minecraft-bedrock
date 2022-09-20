@@ -1,4 +1,12 @@
-import { BlockLocation, Dimension, EntityQueryOptions, Player, world } from "mojang-minecraft";
+import {
+  BlockLocation,
+  Dimension,
+  EntityHealthComponent,
+  EntityHurtEvent,
+  EntityQueryOptions,
+  Player,
+  world,
+} from "mojang-minecraft";
 
 const modName = "Zombie War";
 
@@ -9,9 +17,10 @@ const seconds = 20;
 /** When to start the war */
 const startTime = 5 * seconds;
 /** When to warn the player */
-const informPlayerTime = startTime + 2 * seconds;
+const informPlayerTime = startTime + 15 * seconds;
 const spawn = new BlockLocation(0, -59, 0);
-const debug = false;
+const shouldTrace = false;
+const shouldWarn = true;
 
 /**
  * Convert a block location to a command-friendly string representation
@@ -24,9 +33,14 @@ const say = (message: string): void => {
   world.getDimension("overworld").runCommand(`say ${message}`);
 };
 
-/** `say` if in debug mode, else do nothing */
+/** `say` if `shouldTrace`, else do nothing */
 const trace = (x: string): void => {
-  if (debug) say(x);
+  if (shouldTrace) say(x);
+};
+
+/** `say` if `shouldWarn`, else do nothing */
+const warn = (x: string): void => {
+  if (shouldWarn) say(x);
 };
 
 /**
@@ -38,30 +52,57 @@ const cmd = (dimension: Dimension, command: string): void => {
   dimension.runCommand(command);
 };
 
+/** Initialize, display, and reset scores */
+const initScore = (dim: Dimension, player: Player): void => {
+  // catch in case we've already added this score before.
+  try {
+    cmd(dim, 'scoreboard objectives add score dummy "Kills"');
+  } catch (e) {}
+  cmd(dim, "scoreboard objectives setdisplay sidebar score");
+  cmd(dim, "scoreboard players set @p score 0");
+};
+
 /**
- * Create starting conditions for the war.
  * - Teleport player to spawn house
  * - Lock time to midnight
  * - Replace inventory with wooden sword
  * - Survival mode only
  */
-const initialize = (overworld: Dimension, player: Player) => {
+const resetPlayer = (dim: Dimension, player: Player): void => {
   const playerName = player.name;
 
-  say(`Welcome to ${modName}!`);
+  cmd(dim, `tp ${playerName} ${locToString(spawn)}`);
+  cmd(dim, `gamemode survival ${playerName}`);
 
-  // Teleport player to spawn house
-  cmd(overworld, `tp ${player.name} ${locToString(spawn)}`);
+  // Reset inventory
+  cmd(dim, `clear ${playerName}`);
+  cmd(dim, `give ${playerName} wooden_sword`);
+  cmd(dim, `give ${playerName} cooked_beef`);
+
+  // Reset health
+  try {
+    (player.getComponent("minecraft:health") as EntityHealthComponent).resetToMaxValue();
+  } catch {
+    warn("Failed to reset player health");
+  }
+
+  // TODO reset hunger
+};
+
+/**
+ * Create starting conditions for the war.
+ * - Reset player position, inventory, health, gamemode, score
+ * - Lock time to midnight
+ */
+const initialize = (dim: Dimension, player: Player) => {
+  say(`Welcome to ${modName}!`);
+  initScore(dim, player);
 
   // Lock time to midnight
-  cmd(overworld, "alwaysday true");
-  cmd(overworld, "time set midnight");
+  cmd(dim, "alwaysday true");
+  cmd(dim, "time set midnight");
 
-  // Clear player inventory, use only wooden sword
-  cmd(overworld, `clear ${playerName}`);
-  cmd(overworld, `give ${playerName} wooden_sword`);
-
-  cmd(overworld, `gamemode survival ${playerName}`);
+  resetPlayer(dim, player);
 };
 
 const mainTick = () => {
@@ -90,4 +131,10 @@ const mainTick = () => {
   }
 };
 
+const onEntityHurt = (hurtEvent: EntityHurtEvent): void => {
+  // e.g. minecraft:player hurt minecraft:zombie
+  say(`${hurtEvent.damagingEntity.id} hurt ${hurtEvent.hurtEntity.id}`);
+};
+
 world.events.tick.subscribe(mainTick);
+world.events.entityHurt.subscribe(onEntityHurt);
