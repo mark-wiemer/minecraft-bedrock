@@ -65,6 +65,7 @@ let score = 0;
 let previousRegion = { x: 0, z: 0 };
 
 const regionsToCheck: { x: number; z: number }[] = [];
+const checkedRegions: { x: number; z: number }[] = [];
 
 /**
  * Convert a block location to a command-friendly string representation
@@ -214,7 +215,12 @@ const mainTick = () => {
     if (currentRegion.x !== previousRegion.x || currentRegion.z !== previousRegion.z) {
       for (let i = currentRegion.x - 1; i <= currentRegion.x + 1; i++) {
         for (let j = currentRegion.z - 1; j <= currentRegion.z + 1; j++) {
-          regionsToCheck.push({ x: i, z: j });
+          const testRegion = { x: i, z: j };
+          // check this region if we haven't done so already this playthrough
+          if (!checkedRegions.find((item) => item.x === testRegion.x && item.z === testRegion.z)) {
+            regionsToCheck.push(testRegion);
+            checkedRegions.push(testRegion);
+          }
         }
       }
       previousRegion = currentRegion;
