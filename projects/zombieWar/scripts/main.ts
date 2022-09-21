@@ -207,6 +207,30 @@ const regionToLoc = (region: Region, y: number): BlockLocation =>
 
 const coordToRegion = (num: number): number => Math.floor(num / size);
 
+const getMoveDir = (prev: Region, current: Region): Region => ({ x: current.x - prev.x, z: current.z - prev.z });
+
+const getRegionsToAdd = (dir: Region, current: Region, width: number): Region[] => {
+  const { x: dx, z: dz } = dir;
+  /** Don't check near player, only check at this distance */
+  const distanceToCheck = Math.floor(width / 2);
+  const regions: Region[] = [];
+
+  if (dx) {
+    const checkX = current.x + dx * distanceToCheck;
+    for (let i = current.z - distanceToCheck; i <= current.z + distanceToCheck; i++) {
+      regions.push({ x: checkX, z: i });
+    }
+  }
+  if (dz) {
+    const checkZ = current.z + dz * distanceToCheck;
+    for (let i = current.x - distanceToCheck; i <= current.x + distanceToCheck; i++) {
+      regions.push({ x: i, z: checkZ });
+    }
+  }
+
+  return regions;
+};
+
 const mainTick = () => {
   tickIndex++;
 
@@ -217,16 +241,14 @@ const mainTick = () => {
     const loc = tryTo((player: Player) => player.location, [player], "Failed to get player location");
     const currentRegion = { x: coordToRegion(loc.x), z: coordToRegion(loc.z) };
     if (currentRegion.x !== previousRegion.x || currentRegion.z !== previousRegion.z) {
-      for (let i = currentRegion.x - 1; i <= currentRegion.x + 1; i++) {
-        for (let j = currentRegion.z - 1; j <= currentRegion.z + 1; j++) {
-          const testRegion = { x: i, z: j };
-          // check this region if we haven't done so already this playthrough
-          if (!checkedRegions.find((item) => item.x === testRegion.x && item.z === testRegion.z)) {
-            regionsToCheck.push(testRegion);
-            checkedRegions.push(testRegion);
-          }
-        }
-      }
+      const dir = getMoveDir(previousRegion, currentRegion);
+      const regionsToAdd = getRegionsToAdd(dir, currentRegion, 3).filter(
+        (testRegion) => !checkedRegions.find((item) => item.x === testRegion.x && item.z === testRegion.z)
+      );
+
+      regionsToCheck.push(...regionsToAdd);
+      checkedRegions.push(...regionsToAdd);
+
       previousRegion = currentRegion;
     }
     if (regionsToCheck.length) {
