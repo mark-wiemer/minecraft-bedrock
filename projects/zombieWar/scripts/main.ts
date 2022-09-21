@@ -56,6 +56,7 @@ const structDelay = 5;
 
 const spawn = new BlockLocation(0, -59, 0);
 let score = 0;
+let previousRegion = { x: 0, z: 0 };
 
 /**
  * Convert a block location to a command-friendly string representation
@@ -174,14 +175,19 @@ const spawnStructure = (dim: Dimension, num: number): void => {
     cmd(dim, `structure load ${structName} ${locToString(structLoc)}`);
 };
 
+const coordToRegion = (num: number): number => Math.floor(num / size);
+
 const mainTick = () => {
   tickIndex++;
 
   if (tickIndex > startTime && tickIndex % 5 === 0) {
     const player = getPlayer(over(world));
     const loc = tryTo((player: Player) => player.location, [player], "Failed to get player location");
-    const region = { x: Math.floor(loc.x / size), y: 0, z: Math.floor(loc.z / size) };
-    say(`r ${locToString(region)}`);
+    const currentRegion = { x: coordToRegion(loc.x), z: coordToRegion(loc.z) };
+    if (currentRegion.x !== previousRegion.x || currentRegion.z !== previousRegion.z) {
+      say(`player moved to (${currentRegion.x}, ${currentRegion.z})`);
+      previousRegion = currentRegion;
+    }
   }
 
   if (tickIndex === startTime) {
