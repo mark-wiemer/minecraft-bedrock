@@ -8,7 +8,7 @@ import {
   World,
 } from "mojang-minecraft";
 import { addonName } from "./config.js";
-import { trace, warn, say, zombieDied, attackingPlayerName, getPlayer, spawnZombie } from "./utils";
+import { trace, warn, say, zombieDied, attackingPlayerName, getPlayer, spawnZombie, tryTo } from "./utils";
 
 /** The current tick (used to track time in game) */
 let tickIndex = 0;
@@ -176,6 +176,13 @@ const spawnStructure = (dim: Dimension, num: number): void => {
 
 const mainTick = () => {
   tickIndex++;
+
+  if (tickIndex > startTime && tickIndex % 5 === 0) {
+    const player = getPlayer(over(world));
+    const loc = tryTo((player: Player) => player.location, [player], "Failed to get player location");
+    const region = { x: Math.floor(loc.x / size), y: 0, z: Math.floor(loc.z / size) };
+    say(`r ${locToString(region)}`);
+  }
 
   if (tickIndex === startTime) {
     trace(`${addonName} starting up...`);
