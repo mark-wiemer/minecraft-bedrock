@@ -64,8 +64,12 @@ const obstaclesY = -62;
 let score = 0;
 let previousRegion = { x: 0, z: 0 };
 
-const regionsToCheck: { x: number; z: number }[] = [];
-const checkedRegions: { x: number; z: number }[] = [];
+interface Region {
+  x: number;
+  z: number;
+}
+const regionsToCheck: Region[] = [];
+const checkedRegions: Region[] = [];
 
 /**
  * Convert a block location to a command-friendly string representation
@@ -166,7 +170,7 @@ while (i < 35) {
 }
 i = 0;
 */
-const tickRegion = (num: number, width: number, height: number): { x: number; z: number } => {
+const tickRegion = (num: number, width: number, height: number): Region => {
   const area = width * height;
   const normalized = num % area;
 
@@ -198,7 +202,7 @@ const addStruct = (dim: Dimension, loc: BlockLocation, flagId: string, structNam
 const alreadySpawned = (dim: Dimension, loc: BlockLocation, blockId: string): boolean =>
   dim.getBlock(loc).id === blockId;
 
-const regionToLoc = (region: { x: number; z: number }, y: number): BlockLocation =>
+const regionToLoc = (region: Region, y: number): BlockLocation =>
   new BlockLocation(region.x * size, y, region.z * size);
 
 const coordToRegion = (num: number): number => Math.floor(num / size);
