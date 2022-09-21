@@ -212,7 +212,11 @@ const mainTick = () => {
     const loc = tryTo((player: Player) => player.location, [player], "Failed to get player location");
     const currentRegion = { x: coordToRegion(loc.x), z: coordToRegion(loc.z) };
     if (currentRegion.x !== previousRegion.x || currentRegion.z !== previousRegion.z) {
-      regionsToCheck.push(currentRegion);
+      for (let i = currentRegion.x - 1; i <= currentRegion.x + 1; i++) {
+        for (let j = currentRegion.z - 1; j <= currentRegion.z + 1; j++) {
+          regionsToCheck.push({ x: i, z: j });
+        }
+      }
       previousRegion = currentRegion;
     }
     if (regionsToCheck.length) {
