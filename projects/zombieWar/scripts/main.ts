@@ -64,6 +64,8 @@ const obstaclesY = -62;
 let score = 0;
 let previousRegion = { x: 0, z: 0 };
 
+const regionsToCheck: { x: number; z: number }[] = [];
+
 /**
  * Convert a block location to a command-friendly string representation
  * e.g. locToString({ x: 1, y: 2, z: 3 }) === "1 2 3"
@@ -210,10 +212,13 @@ const mainTick = () => {
     const loc = tryTo((player: Player) => player.location, [player], "Failed to get player location");
     const currentRegion = { x: coordToRegion(loc.x), z: coordToRegion(loc.z) };
     if (currentRegion.x !== previousRegion.x || currentRegion.z !== previousRegion.z) {
-      const newStructLoc = regionToLoc({ x: currentRegion.x + 1, z: currentRegion.z }, obstaclesY);
-      addStruct(overworld, newStructLoc, obstaclesFlagId, obstaclesStructId);
-      say(`player moved to (${currentRegion.x}, ${currentRegion.z})`);
+      regionsToCheck.push(currentRegion);
       previousRegion = currentRegion;
+    }
+    if (regionsToCheck.length) {
+      const region = regionsToCheck.shift() ?? { x: 0, z: 0 }; // `??` just to satisfy TS
+      const newStructLoc = regionToLoc(region, obstaclesY);
+      addStruct(overworld, newStructLoc, obstaclesFlagId, obstaclesStructId);
     }
   }
 
