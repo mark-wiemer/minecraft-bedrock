@@ -242,7 +242,7 @@ const mainTick = () => {
     const currentRegion = { x: coordToRegion(loc.x), z: coordToRegion(loc.z) };
     if (currentRegion.x !== previousRegion.x || currentRegion.z !== previousRegion.z) {
       const dir = getMoveDir(previousRegion, currentRegion);
-      const regionsToAdd = getRegionsToAdd(dir, currentRegion, 3).filter(
+      const regionsToAdd = getRegionsToAdd(dir, currentRegion, 5).filter(
         (testRegion) => !checkedRegions.find((item) => item.x === testRegion.x && item.z === testRegion.z)
       );
 
