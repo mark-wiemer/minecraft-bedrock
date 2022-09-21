@@ -32,8 +32,27 @@ const emptyHungerDuration = 3;
 const fillHungerTime = emptyHungerTime + emptyHungerDuration * seconds;
 /** How long to apply the hunger effect, in seconds */
 const fillHungerDuration = 3;
+/** When to spawn some obstacles */
+const structureTime = fillHungerTime + fillHungerDuration * seconds;
 /** When to warn the player */
-const informPlayerTime = fillHungerTime + (fillHungerDuration + 2) * seconds;
+const informPlayerTime = structureTime + 2 * seconds;
+
+/** Size of map, in regions. mapSize.width = 7 means the map is 7 regions wide. */
+const map = {
+  width: 7,
+  depth: 7,
+};
+/** Number of regions in the map. Simple rectangle math */
+const regionCount = map.width * map.depth;
+/** The offset, in regions, of the northwesternmost region */
+// Current logic guarantees map is centered.
+const northWestRegionOffset = { x: Math.floor(-map.width / 2), z: Math.floor(-map.depth / 2) };
+/** Filename of the structure lto load in */
+const structName = "obstacles";
+/** side length of bounding square */
+const size = 16;
+/** delay in ticks between each struct creation */
+const structDelay = 5;
 
 const spawn = new BlockLocation(0, -59, 0);
 let score = 0;
@@ -121,6 +140,40 @@ const fillHunger = (player: Player) => {
   player.dimension.runCommand(`effect ${player.name} saturation ${fillHungerDuration} 255`);
 };
 
+/**
+ * Converts an int into a 2D position on a rectangle.
+ * x corresponds to width, z to height.
+ * You give me ints, I give you ints.
+ * Otherwise we're both in for a world of hurt.
+ *
+ *
+ */
+/*
+while (i < 35) {
+    console.log(tickRegion(i, 3, 5));
+    i++;
+}
+i = 0;
+*/
+const tickRegion = (num: number, width: number, height: number): { x: number; z: number } => {
+  const area = width * height;
+  const normalized = num % area;
+
+  return { x: Math.floor(normalized / height), z: normalized % height };
+};
+
+/** Spawns a structure in a region if the conditions are right */
+const spawnStructure = (dim: Dimension, num: number): void => {
+  const timeSinceStart = num - structureTime;
+  if (timeSinceStart % structDelay !== 0) return; // do nothing unless it's time
+
+  const { x, z } = tickRegion(Math.floor(timeSinceStart / structDelay), map.width, map.depth);
+  const regionOffset = { x: x + northWestRegionOffset.x, z: z + northWestRegionOffset.z };
+  const structLoc = new BlockLocation(regionOffset.x * size, -62, regionOffset.z * size);
+  if (dim.getBlock(structLoc).id !== "minecraft:obsidian")
+    cmd(dim, `structure load ${structName} ${locToString(structLoc)}`);
+};
+
 const mainTick = () => {
   tickIndex++;
 
@@ -144,6 +197,11 @@ const mainTick = () => {
 
   if (tickIndex === fillHungerTime) {
     fillHunger(getPlayer(over(world)));
+  }
+
+  // If we're in structure spawning duration
+  if (tickIndex >= structureTime && tickIndex < structureTime + regionCount * structDelay) {
+    spawnStructure(over(world), tickIndex);
   }
 
   if (tickIndex === informPlayerTime) {
