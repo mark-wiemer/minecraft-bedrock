@@ -47,14 +47,20 @@ const regionCount = map.width * map.depth;
 /** The offset, in regions, of the northwesternmost region */
 // Current logic guarantees map is centered.
 const northWestRegionOffset = { x: Math.ceil(-map.width / 2), z: Math.ceil(-map.depth / 2) };
-/** Filename of the structure lto load in */
-const structName = "obstacles";
+
+/** Filename of the structure to load in */
+const obstaclesStructId = "obstacles";
+/** Flag for obstacles struct */
+const obstaclesFlagId = "minecraft:obsidian";
+
 /** side length of bounding square */
 const size = 16;
 /** delay in ticks between each struct creation */
 const structDelay = 5;
 
-const spawn = new BlockLocation(0, -59, 0);
+const groundY = -60;
+const spawn = new BlockLocation(0, groundY, 0);
+const obstaclesY = -62;
 let score = 0;
 let previousRegion = { x: 0, z: 0 };
 
@@ -164,23 +170,26 @@ const tickRegion = (num: number, width: number, height: number): { x: number; z:
   return { x: Math.floor(normalized / height), z: normalized % height };
 };
 
-const getStructLoc = (tickIndex: number): BlockLocation | null => {
-  const timeSinceStart = tickIndex - structureTime;
-  if (timeSinceStart % structDelay !== 0) return null; // do nothing unless it's time
-
-  const index = Math.floor(timeSinceStart / structDelay);
+const getStructLoc = (index: number): BlockLocation | null => {
   const { x, z } = tickRegion(index, map.width, map.depth);
   const regionOffset = { x: x + northWestRegionOffset.x, z: z + northWestRegionOffset.z };
-  const structLoc = regionToLoc(regionOffset, -62);
+  const structLoc = regionToLoc(regionOffset, obstaclesY);
   return structLoc;
 };
 
 /** Spawns a structure in a region if the conditions are right */
 const spawnStructure = (dim: Dimension, tickIndex: number): void => {
-  const structLoc = getStructLoc(tickIndex);
+  const timeSinceStart = tickIndex - structureTime;
+  if (timeSinceStart % structDelay !== 0) return; // do nothing unless it's time
+
+  const index = Math.floor(timeSinceStart / structDelay);
+  const structLoc = getStructLoc(index);
   if (!structLoc) return;
-  if (!alreadySpawned(dim, structLoc, "minecraft:obsidian"))
-    cmd(dim, `structure load ${structName} ${locToString(structLoc)}`);
+  addStruct(dim, structLoc, obstaclesFlagId, obstaclesStructId);
+};
+
+const addStruct = (dim: Dimension, loc: BlockLocation, flagId: string, structName: string): void => {
+  if (!alreadySpawned(dim, loc, flagId)) cmd(dim, `structure load ${structName} ${locToString(loc)}`);
 };
 
 const alreadySpawned = (dim: Dimension, loc: BlockLocation, blockId: string): boolean =>
@@ -194,11 +203,15 @@ const coordToRegion = (num: number): number => Math.floor(num / size);
 const mainTick = () => {
   tickIndex++;
 
+  /** Once we've begun, track player 4 times per second and spawn new stuff around them */
   if (tickIndex > startTime && tickIndex % 5 === 0) {
-    const player = getPlayer(over(world));
+    const overworld = over(world);
+    const player = getPlayer(overworld);
     const loc = tryTo((player: Player) => player.location, [player], "Failed to get player location");
     const currentRegion = { x: coordToRegion(loc.x), z: coordToRegion(loc.z) };
     if (currentRegion.x !== previousRegion.x || currentRegion.z !== previousRegion.z) {
+      const newStructLoc = regionToLoc({ x: currentRegion.x + 1, z: currentRegion.z }, obstaclesY);
+      addStruct(overworld, newStructLoc, obstaclesFlagId, obstaclesStructId);
       say(`player moved to (${currentRegion.x}, ${currentRegion.z})`);
       previousRegion = currentRegion;
     }
