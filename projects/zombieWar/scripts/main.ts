@@ -46,7 +46,7 @@ const map = {
 const regionCount = map.width * map.depth;
 /** The offset, in regions, of the northwesternmost region */
 // Current logic guarantees map is centered.
-const northWestRegionOffset = { x: Math.floor(-map.width / 2), z: Math.floor(-map.depth / 2) };
+const northWestRegionOffset = { x: Math.ceil(-map.width / 2), z: Math.ceil(-map.depth / 2) };
 /** Filename of the structure lto load in */
 const structName = "obstacles";
 /** side length of bounding square */
