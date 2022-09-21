@@ -50,6 +50,7 @@ const northWestRegionOffset = { x: Math.ceil(-map.width / 2), z: Math.ceil(-map.
 
 /** Filename of the structure to load in */
 const obstaclesStructId = "obstacles";
+const churchStructId = "church";
 /** Flag for obstacles struct */
 const obstaclesFlagId = "minecraft:obsidian";
 
@@ -254,7 +255,7 @@ const mainTick = () => {
     if (regionsToCheck.length) {
       const region = regionsToCheck.shift() ?? { x: 0, z: 0 }; // `??` just to satisfy TS
       const newStructLoc = regionToLoc(region, obstaclesY);
-      addStruct(overworld, newStructLoc, obstaclesFlagId, obstaclesStructId);
+      addStruct(overworld, newStructLoc, obstaclesFlagId, churchStructId);
     }
   }
 
