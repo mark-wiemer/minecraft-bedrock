@@ -147,7 +147,8 @@ const fillHunger = (player: Player) => {
  * You give me ints, I give you ints.
  * Otherwise we're both in for a world of hurt.
  *
- *
+ * Returns from [0, 0] to (width, height)
+ * Use return value + offset to get world coords
  */
 /*
 while (i < 35) {
@@ -163,17 +164,30 @@ const tickRegion = (num: number, width: number, height: number): { x: number; z:
   return { x: Math.floor(normalized / height), z: normalized % height };
 };
 
-/** Spawns a structure in a region if the conditions are right */
-const spawnStructure = (dim: Dimension, num: number): void => {
-  const timeSinceStart = num - structureTime;
-  if (timeSinceStart % structDelay !== 0) return; // do nothing unless it's time
+const getStructLoc = (tickIndex: number): BlockLocation | null => {
+  const timeSinceStart = tickIndex - structureTime;
+  if (timeSinceStart % structDelay !== 0) return null; // do nothing unless it's time
 
-  const { x, z } = tickRegion(Math.floor(timeSinceStart / structDelay), map.width, map.depth);
+  const index = Math.floor(timeSinceStart / structDelay);
+  const { x, z } = tickRegion(index, map.width, map.depth);
   const regionOffset = { x: x + northWestRegionOffset.x, z: z + northWestRegionOffset.z };
-  const structLoc = new BlockLocation(regionOffset.x * size, -62, regionOffset.z * size);
-  if (dim.getBlock(structLoc).id !== "minecraft:obsidian")
+  const structLoc = regionToLoc(regionOffset, -62);
+  return structLoc;
+};
+
+/** Spawns a structure in a region if the conditions are right */
+const spawnStructure = (dim: Dimension, tickIndex: number): void => {
+  const structLoc = getStructLoc(tickIndex);
+  if (!structLoc) return;
+  if (!alreadySpawned(dim, structLoc, "minecraft:obsidian"))
     cmd(dim, `structure load ${structName} ${locToString(structLoc)}`);
 };
+
+const alreadySpawned = (dim: Dimension, loc: BlockLocation, blockId: string): boolean =>
+  dim.getBlock(loc).id === blockId;
+
+const regionToLoc = (region: { x: number; z: number }, y: number): BlockLocation =>
+  new BlockLocation(region.x * size, y, region.z * size);
 
 const coordToRegion = (num: number): number => Math.floor(num / size);
 
