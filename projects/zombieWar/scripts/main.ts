@@ -39,8 +39,8 @@ const informPlayerTime = structureTime + 2 * seconds;
 
 /** Size of map, in regions. mapSize.width = 7 means the map is 7 regions wide. */
 const map = {
-  width: 7,
-  depth: 7,
+  width: 5,
+  depth: 5,
 };
 /** Number of regions in the map. Simple rectangle math */
 const regionCount = map.width * map.depth;
@@ -57,7 +57,7 @@ const obstaclesFlagId = "minecraft:obsidian";
 /** side length of bounding square */
 const size = 16;
 /** delay in ticks between each struct creation */
-const structDelay = 5;
+const structDelay = 10;
 
 const groundY = -60;
 const spawn = new BlockLocation(0, groundY, 0);
@@ -197,7 +197,10 @@ const spawnStructure = (dim: Dimension, tickIndex: number): void => {
 };
 
 const addStruct = (dim: Dimension, loc: BlockLocation, flagId: string, structName: string): void => {
-  if (!alreadySpawned(dim, loc, flagId)) cmd(dim, `structure load ${structName} ${locToString(loc)}`);
+  const rotations = [0, 90, 180, 270];
+  const rotation = rotations[Math.floor(Math.random() * rotations.length)];
+  if (!alreadySpawned(dim, loc, flagId))
+    cmd(dim, `structure load ${structName} ${locToString(loc)} ${rotation}_degrees`);
 };
 
 const alreadySpawned = (dim: Dimension, loc: BlockLocation, blockId: string): boolean =>
@@ -255,7 +258,9 @@ const mainTick = () => {
     if (regionsToCheck.length) {
       const region = regionsToCheck.shift() ?? { x: 0, z: 0 }; // `??` just to satisfy TS
       const newStructLoc = regionToLoc(region, obstaclesY);
-      addStruct(overworld, newStructLoc, obstaclesFlagId, churchStructId);
+      const structIds = [obstaclesStructId, churchStructId, "ring", "market", "graveyard"];
+      const structToAdd = structIds[Math.floor(Math.random() * structIds.length)];
+      addStruct(overworld, newStructLoc, obstaclesFlagId, structToAdd);
     }
   }
 
