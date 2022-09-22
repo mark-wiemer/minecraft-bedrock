@@ -303,8 +303,13 @@ const mainTick = () => {
 
 const updateEquipment = (player: Player, score: number): void => {
   const equipmentScores: Record<number, string> = {
+    1: "poisonous_potato",
+    2: "leather_boots",
+    3: "leather_helmet",
     5: "cooked_chicken",
+    8: "wooden_sword",
     10: "mushroom_stew",
+    13: "leather_leggings",
     15: "iron_sword",
     20: "iron_helmet",
     25: "iron_boots",
