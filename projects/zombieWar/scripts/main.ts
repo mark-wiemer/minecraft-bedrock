@@ -293,6 +293,9 @@ const mainTick = () => {
 
   if (tickIndex === informPlayerTime) {
     say("Survive.");
+    const zombieCount = 2;
+    const player = getPlayer(over(world));
+    new Array(zombieCount).fill(0).forEach(() => spawnZombie(player));
   }
 
   // Spawn zombie every few seconds
@@ -307,7 +310,7 @@ const updateEquipment = (player: Player, score: number): void => {
     2: "leather_boots",
     3: "leather_helmet",
     5: "cooked_chicken",
-    8: "wooden_sword",
+    6: "wooden_sword",
     10: "mushroom_stew",
     13: "leather_leggings",
     15: "iron_sword",
