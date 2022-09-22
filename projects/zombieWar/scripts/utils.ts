@@ -87,9 +87,23 @@ export const getPlayer = (dim: Dimension): Player =>
     `Failed to find player`
   );
 
+export const getZombieLoc = (player: Player): mcLocation => {
+  const distance = 5;
+  /** Radians per degree, used like `sin(90 * degrees) === 1` */
+  const degrees = Math.PI / 180;
+  /** 0 = north: +Z, 90 = east: -X, 180/-180 = south: -Z, -90 = west: +X */
+  const angle = player.rotation.y;
+  const xOffset = Math.sin(angle * degrees) * distance;
+  const zOffset = -Math.cos(angle * degrees) * distance;
+  const playerPos = pPos(player);
+  const zLoc = new mcLocation(playerPos.x + xOffset, playerPos.y, playerPos.z + zOffset);
+  return zLoc;
+};
+
+export const pPos = (player: Player): mcLocation =>
+  tryTo((player: Player) => player.location, [player], "Failed to get player location");
+
 /** Spawn a zombie 10 blocks above the player. Watch out! */
 export const spawnZombie = (player: Player) => {
-  const playerPos = tryTo((player: Player) => player.location, [player], "Failed to get player location");
-  const dim = player.dimension;
-  dim.spawnEntity("minecraft:zombie", new mcLocation(playerPos.x, playerPos.y + 10, playerPos.z));
+  player.dimension.spawnEntity("minecraft:zombie", getZombieLoc(player));
 };

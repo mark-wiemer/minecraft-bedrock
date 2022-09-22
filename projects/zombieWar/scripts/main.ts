@@ -295,8 +295,8 @@ const mainTick = () => {
     say("Survive.");
   }
 
-  // Spawn zombie every 10 seconds
-  if (tickIndex % (10 * seconds) === 0) {
+  // Spawn zombie every few seconds
+  if (tickIndex % (5 * seconds) === 0) {
     spawnZombie(getPlayer(over(world)));
   }
 };
