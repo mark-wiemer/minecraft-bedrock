@@ -301,6 +301,29 @@ const mainTick = () => {
   }
 };
 
+const updateEquipment = (player: Player, score: number): void => {
+  const equipmentScores: Record<number, string> = {
+    5: "cooked_chicken",
+    10: "mushroom_stew",
+    15: "iron_sword",
+    20: "iron_helmet",
+    25: "iron_boots",
+    30: "cooked_porkchop",
+    35: "iron_leggings",
+    50: "iron_chestplate",
+    60: "iron_sword",
+    80: "diamond_boots",
+    100: "diamond_leggings",
+    120: "diamond_sword",
+    150: "diamond_helmet",
+    200: "diamond_chestplate",
+    250: "apple",
+  };
+  const newEquipment = equipmentScores[score];
+  if (!newEquipment) return;
+  cmd(player.dimension, `give ${player.name} ${newEquipment}`);
+};
+
 const onEntityHurt = (hurtEvent: EntityHurtEvent): void => {
   if (zombieDied(hurtEvent)) {
     /** The name of the attacking player. If the attacker is not a player, this is nullish. */
@@ -308,6 +331,7 @@ const onEntityHurt = (hurtEvent: EntityHurtEvent): void => {
     if (name) {
       score++;
       cmd(over(world), `scoreboard players set ${name} score ${score}`);
+      updateEquipment(hurtEvent.damagingEntity as Player, score);
     }
   }
 };
