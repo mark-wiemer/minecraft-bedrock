@@ -1,0 +1,18 @@
+{
+  "format_version": 2,
+  "header": {
+    "description": "Removes particles from beacon effects, but keeps everything else",
+    "name": "Remove beacon particles",
+    "uuid": "47b0e613-02cb-4dda-88e8-1d9d4bb47d13",
+    "version": [1, 0, 0],
+    "min_engine_version": [1, 16, 0]
+  },
+  "modules": [
+    {
+      "description": "Removes beacon effect particles",
+      "type": "resources",
+      "uuid": "e581c2fe-0244-4d85-860e-dbc1324f9515",
+      "version": [1, 0, 0]
+    }
+  ]
+}
