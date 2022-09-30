@@ -4,8 +4,8 @@
     "name": "Zombie War",
     "description": "Can you survive?",
     "uuid": "b3cd4457-ac8e-454e-b3ed-e9f54944a3cc",
-    "version": [0, 0, 1],
-    "min_engine_version": [1, 16, 210]
+    "version": [0, 2, 0],
+    "min_engine_version": [1, 19, 30]
   },
   "modules": [
     {
@@ -13,18 +13,18 @@
       "language": "javascript",
       "type": "script",
       "uuid": "7c7e693f-99f4-41a9-95e0-1f57b37e1e12",
-      "version": [0, 0, 1],
+      "version": [0, 2, 0],
       "entry": "scripts/main.js"
     }
   ],
   "dependencies": [
     {
-      "uuid": "b26a4d4c-afdf-4690-88f8-931846312678",
-      "version": [0, 1, 0]
+      "module_name": "mojang-minecraft",
+      "version": "1.0.0-beta"
     },
     {
-      "uuid": "6f4b6893-1bb6-42fd-b458-7fa3d0c89616",
-      "version": [0, 1, 0]
+      "module_name": "mojang-minecraft-ui",
+      "version": "1.0.0-beta"
     }
   ]
 }
