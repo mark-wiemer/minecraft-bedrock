@@ -39,4 +39,4 @@ Explore the repo to find which pack is used for each bit of work. Also explore t
 ### Current work
 
 - Learn how to use [Regolith](https://github.com/Bedrock-OSS/regolith). See [Project Hello Regolith](./projects/helloRegolith/)
-- Inventory management mods in Minecraft Bedrock!
+- Inventory management mods in Minecraft Bedrock! See [Project Inventory Management](./projects/inventoryManagement/)
