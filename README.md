@@ -2,11 +2,11 @@
 
 General repo for add-ons, mods, links, etc. for Minecraft Bedrock
 
-## How to build Minecraft mods
+## How to build Minecraft Bedrock add-ons
 
 Ever wanted to mod Minecraft, but not sure where to get started? Here are some links I found that were super helpful for me!
 
-These links are for Minecraft Bedrock Edition. Historically, mod support (AKA add-on support) for this edition has been poor. But as a software engineer I can say I've found great mod support now! It's definitely worth looking into.
+These links are for Minecraft Bedrock Edition. Historically, add-on support (AKA mod support) for this edition has been poor. But as a software engineer I can say I've found great support now! It's definitely worth looking into.
 
 - [Microsoft Learn homepage](https://learn.microsoft.com/en-us/minecraft/creator/): This is the official Microsoft-supported main page for everything creators need to know to get started making resource packs and behavior packs.
 - [Getting Started with Add-On Development for Bedrock Edition](https://learn.microsoft.com/en-us/minecraft/creator/documents/gettingstarted): These guides show you exactly how to build your first resource pack and your first behavior pack, from start to finish.
@@ -19,6 +19,10 @@ These links are for Minecraft Bedrock Edition. Historically, mod support (AKA ad
 
 And remember -- be patient, ask for help, and always be curious! Modding is hard work, and it'll take a lot of time, energy, and boring research to create something awesome. But I promise it's worth it!
 
+## Other resources
+
+- [Minecraft changelog](https://feedback.minecraft.net/hc/en-us/sections/360001186971-Release-Changelogs): Sometimes when Minecraft changes, our add-ons will break until we make our own changes. Always check the changelog!
+
 ### Completed work
 
 Explore the repo to find which pack is used for each bit of work. Also explore the git history for more details.
@@ -30,7 +34,9 @@ Explore the repo to find which pack is used for each bit of work. Also explore t
 - [Using TypeScript](https://learn.microsoft.com/en-us/minecraft/creator/documents/scriptinggettingstarted) instead of JavaScript, Molang, mcfunction, or JSON. See [Project Cotta](./projects/cotta/README.md)
 - Getting a custom TS pack to update when player leaves and rejoins the game. See [Project Smooth Stone](./projects/smoothStone/README.md)
 - Mastering the project initialization process. See [Project Marble](./projects/marble/README.md)
+- Awesome Zombie Fighting add-on! See [Project Z-War](./projects/zombieWar/README.md)
 
 ### Current work
 
-- Building an awesome Zombie Fighting add-on! See [Project Z-War](./projects/zombieWar/README.md)
+- Learn how to use [Regolith](https://github.com/Bedrock-OSS/regolith). See [Project Hello Regolith](./projects/helloRegolith/)
+- Inventory management mods in Minecraft Bedrock!
