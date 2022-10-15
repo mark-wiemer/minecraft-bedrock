@@ -1,0 +1,13 @@
+{
+  "name": "example-gametest",
+  "version": "0.0.1",
+  "description": "Example of a GameTest module",
+  "main": "main.js",
+  "scripts": {},
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@types/mojang-gametest": "^0.1.5",
+    "@types/mojang-minecraft": "^0.1.6"
+  }
+}
