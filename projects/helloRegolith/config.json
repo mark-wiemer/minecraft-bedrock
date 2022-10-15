@@ -1,22 +1,27 @@
 {
-	"$schema": "https://raw.githubusercontent.com/Bedrock-OSS/regolith-schemas/main/config/v1.json",
-	"author": "Mark Wiemer",
-	"name": "Hello Regolith",
-	"packs": {
-		"behaviorPack": "./packs/BP",
-		"resourcePack": "./packs/RP"
-	},
-	"regolith": {
-		"dataPath": "./packs/data",
-		"filterDefinitions": {},
-		"profiles": {
-			"default": {
-				"export": {
-					"readOnly": false,
-					"target": "development"
-				},
-				"filters": []
-			}
-		}
-	}
+  "$schema": "https://raw.githubusercontent.com/Bedrock-OSS/regolith-schemas/main/config/v1.json",
+  "author": "Mark Wiemer",
+  "name": "Hello Regolith",
+  "packs": {
+    "behaviorPack": "./packs/BP",
+    "resourcePack": "./packs/RP"
+  },
+  "regolith": {
+    "dataPath": "./packs/data",
+    "filterDefinitions": {
+      "gametests": {
+        "url": "github.com/Bedrock-OSS/regolith-filters",
+        "version": "1.2.0"
+      }
+    },
+    "profiles": {
+      "default": {
+        "export": {
+          "readOnly": false,
+          "target": "development"
+        },
+        "filters": [{ "filter": "gametests" }]
+      }
+    }
+  }
 }
