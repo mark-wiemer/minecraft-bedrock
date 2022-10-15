@@ -22,6 +22,7 @@ And remember -- be patient, ask for help, and always be curious! Modding is hard
 ## Other resources
 
 - [Minecraft changelog](https://feedback.minecraft.net/hc/en-us/sections/360001186971-Release-Changelogs): Sometimes when Minecraft changes, our add-ons will break until we make our own changes. Always check the changelog!
+- [Regolith](https://github.com/Bedrock-OSS/regolith): Regolith is an add-on compiler. It helps you build complex add-ons without worrying about making mistakes adjusting filenames or doing other tedious work.
 
 ### Completed work
 
@@ -31,12 +32,11 @@ Explore the repo to find which pack is used for each bit of work. Also explore t
 - Sample behavior pack with Molang
 - Sample behavior pack with `mcfunction` (in-game commands)
 - Using GameTest framework to add functionality, not just tests. See [the Smelly pack](./behavior-packs/smelly-pack/README.md)
-- [Using TypeScript](https://learn.microsoft.com/en-us/minecraft/creator/documents/scriptinggettingstarted) instead of JavaScript, Molang, mcfunction, or JSON. See [Project Cotta](./projects/cotta/README.md)
-- Getting a custom TS pack to update when player leaves and rejoins the game. See [Project Smooth Stone](./projects/smoothStone/README.md)
-- Mastering the project initialization process. See [Project Marble](./projects/marble/README.md)
-- Awesome Zombie Fighting add-on! See [Project Z-War](./projects/zombieWar/README.md)
+- [Using TypeScript](https://learn.microsoft.com/en-us/minecraft/creator/documents/scriptinggettingstarted) instead of JavaScript, Molang, mcfunction, or JSON. See [Project Cotta](./projects/archive/cotta/README.md)
+- Getting a custom TS pack to update when player leaves and rejoins the game. See [Project Smooth Stone](./projects/archive/smoothStone/README.md)
+- Mastering the project initialization process. See [Project Marble](./projects/archive/marble/README.md)
+- Awesome Zombie Fighting add-on! See [Project Z-War](./projects/archive/zombieWar/README.md)
+- Learn how to use [Regolith](https://github.com/Bedrock-OSS/regolith). See [Project Hello Regolith](./projects/archive/helloRegolith/)
 
 ### Current work
-
-- Learn how to use [Regolith](https://github.com/Bedrock-OSS/regolith). See [Project Hello Regolith](./projects/helloRegolith/)
 - Inventory management mods in Minecraft Bedrock! See [Project Inventory Management](./projects/inventoryManagement/)
