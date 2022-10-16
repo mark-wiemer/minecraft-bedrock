@@ -39,4 +39,6 @@ Explore the repo to find which pack is used for each bit of work. Also explore t
 - Learn how to use [Regolith](https://github.com/Bedrock-OSS/regolith). See [Project Hello Regolith](./projects/archive/helloRegolith/)
 
 ### Current work
+
+- Setting up a continuous workflow template project. See [Project Inventory Management](./projects/inventoryManagement/)
 - Inventory management mods in Minecraft Bedrock! See [Project Inventory Management](./projects/inventoryManagement/)
