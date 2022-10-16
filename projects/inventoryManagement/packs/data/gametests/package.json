@@ -3,11 +3,17 @@
   "version": "0.0.1",
   "description": "Example of a GameTest module",
   "main": "main.js",
-  "scripts": {},
+  "scripts": {
+    "test": "vitest",
+    "coverage": "vitest run --coverage"
+  },
   "author": "",
   "license": "ISC",
   "dependencies": {
     "@types/mojang-gametest": "^0.1.5",
     "@types/mojang-minecraft": "^0.1.6"
+  },
+  "devDependencies": {
+    "vitest": "^0.24.3"
   }
 }
