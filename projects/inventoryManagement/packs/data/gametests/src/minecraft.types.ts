@@ -1,10 +1,11 @@
+/* eslint-disable @typescript-eslint/naming-convention */
+
 // Customized types file so we can run unit tests.
 // Constructors and static functions have been removed
 // since we can't confidently mock their functionality.
 // Many classes have converted to interfaces for the same reason.
 // If we need the Minecraft-specific types, we can just reference those.
 // But we should isolate references to those types as they're harder to test.
-
 
 // Type definitions for Minecraft Bedrock Edition script APIs (experimental) 0.1
 // Project: https://docs.microsoft.com/minecraft/creator/
@@ -53,7 +54,7 @@ export class IBlockProperty {
  * Contains information regarding an event that impacts a
  * specific block.
  */
- export class BlockEvent {
+export class BlockEvent {
     /**
      * Block impacted by this event.
      */
@@ -75,14 +76,14 @@ export interface Container {
      * empty.
      * @throws This property can throw when used.
      */
-    readonly 'emptySlotsCount': number;
+    readonly emptySlotsCount: number;
     /**
      * Represents the size of the container. For example, a
      * standard single-block chest has a size of 27, for the 27
      * slots in their inventory.
      * @throws This property can throw when used.
      */
-    readonly 'size': number;
+    readonly size: number;
     /**
      * @remarks
      * Adds an item to the specified container. Item will be placed
@@ -140,7 +141,11 @@ export interface Container {
      *
      * ```
      */
-    swapItems(slot: number, otherSlot: number, otherContainer: Container): boolean;
+    swapItems(
+        slot: number,
+        otherSlot: number,
+        otherContainer: Container,
+    ): boolean;
     /**
      * @remarks
      * Moves an item from one slot to another, potentially across
@@ -158,13 +163,17 @@ export interface Container {
      *
      * ```
      */
-    transferItem(fromSlot: number, toSlot: number, toContainer: Container): boolean;
+    transferItem(
+        fromSlot: number,
+        toSlot: number,
+        toContainer: Container,
+    ): boolean;
 }
 /**
  * Represents a direction for expressing relative position or
  * facing.
  */
- export enum Direction {
+export enum Direction {
     /**
      * Represents an object located or facing in the down (z - 1)
      * direction.
@@ -283,7 +292,9 @@ export interface BeforeChatEventSignal {
      * are sent.
      * @param callback
      */
-    subscribe(callback: (arg: BeforeChatEvent) => void): (arg: BeforeChatEvent) => void;
+    subscribe(
+        callback: (arg: BeforeChatEvent) => void,
+    ): (arg: BeforeChatEvent) => void;
     /**
      * @remarks
      * Removes a callback from being called before new chat
@@ -341,7 +352,9 @@ export interface BeforeDataDrivenEntityTriggerEventSignal {
      * @param callback
      * @throws This function can throw errors.
      */
-    unsubscribe(callback: (arg: BeforeDataDrivenEntityTriggerEvent) => void): void;
+    unsubscribe(
+        callback: (arg: BeforeDataDrivenEntityTriggerEvent) => void,
+    ): void;
 }
 /**
  * Contains information regarding an explosion that has
@@ -379,7 +392,9 @@ export interface BeforeExplosionEventSignal {
      * explosion behavior.
      * @param callback
      */
-    subscribe(callback: (arg: BeforeExplosionEvent) => void): (arg: BeforeExplosionEvent) => void;
+    subscribe(
+        callback: (arg: BeforeExplosionEvent) => void,
+    ): (arg: BeforeExplosionEvent) => void;
     /**
      * @remarks
      * Removes a callback from being called from before when an
@@ -410,7 +425,9 @@ export interface BeforeItemDefinitionEventSignal {
      * @param callback
      * @throws This function can throw errors.
      */
-    unsubscribe(callback: (arg: BeforeItemDefinitionTriggeredEvent) => void): void;
+    unsubscribe(
+        callback: (arg: BeforeItemDefinitionTriggeredEvent) => void,
+    ): void;
 }
 /**
  * Contains information related to a triggering of a custom
@@ -462,7 +479,9 @@ export interface BeforeItemUseEventSignal {
      * Adds a callback that will be called before an item is used.
      * @param callback
      */
-    subscribe(callback: (arg: BeforeItemUseEvent) => void): (arg: BeforeItemUseEvent) => void;
+    subscribe(
+        callback: (arg: BeforeItemUseEvent) => void,
+    ): (arg: BeforeItemUseEvent) => void;
     /**
      * @remarks
      * Removes a callback from being called before an item is used.
@@ -518,7 +537,9 @@ export interface BeforeItemUseOnEventSignal {
      * on a block.
      * @param callback
      */
-    subscribe(callback: (arg: BeforeItemUseOnEvent) => void): (arg: BeforeItemUseOnEvent) => void;
+    subscribe(
+        callback: (arg: BeforeItemUseOnEvent) => void,
+    ): (arg: BeforeItemUseOnEvent) => void;
     /**
      * @remarks
      * Removes a callback from being called before an item is used
@@ -567,7 +588,9 @@ export interface BeforePistonActivateEventSignal {
      * or retracts.
      * @param callback
      */
-    subscribe(callback: (arg: BeforePistonActivateEvent) => void): (arg: BeforePistonActivateEvent) => void;
+    subscribe(
+        callback: (arg: BeforePistonActivateEvent) => void,
+    ): (arg: BeforePistonActivateEvent) => void;
     /**
      * @remarks
      * Removes a callback from being called before a piston expands
@@ -587,44 +610,44 @@ export interface Block {
     /**
      * Returns the dimension that the block is within.
      */
-    readonly 'dimension': Dimension;
+    readonly dimension: Dimension;
     /**
      * Identifier of the type of block for this block.
      */
-    readonly 'id': string;
+    readonly id: string;
     /**
      * Whether this particular block is empty (air).
      */
-    readonly 'isEmpty': boolean;
+    readonly isEmpty: boolean;
     /**
      * Returns or sets whether this block has a liquid on it.
      */
-    'isWaterlogged': boolean;
+    isWaterlogged: boolean;
     /**
      * Coordinates of the specified block.
      */
-    readonly 'location': BlockLocation;
+    readonly location: BlockLocation;
     /**
      * Additional block configuration data that describes the
      * block.
      */
-    readonly 'permutation': BlockPermutation;
+    readonly permutation: BlockPermutation;
     /**
      * Gets the type of block.
      */
-    readonly 'type': BlockType;
+    readonly type: BlockType;
     /**
      * X coordinate of the block.
      */
-    readonly 'x': number;
+    readonly x: number;
     /**
      * Y coordinate of the block.
      */
-    readonly 'y': number;
+    readonly y: number;
     /**
      * Z coordinate of the block.
      */
-    readonly 'z': number;
+    readonly z: number;
     /**
      * @remarks
      * Gets additional configuration properties (a component) for
@@ -693,15 +716,15 @@ export interface BlockAreaSize {
     /**
      * X size (west to east) component of this block area.
      */
-    'x': number;
+    x: number;
     /**
      * Y size (down to up) of this block area size.
      */
-    'y': number;
+    y: number;
     /**
      * Z size (south to north) of this block area size.
      */
-    'z': number;
+    z: number;
     // /**
     //  * @remarks
     //  * Creates a new BlockAreaSize object.
@@ -757,7 +780,9 @@ export interface BlockBreakEventSignal {
      * by a player.
      * @param callback
      */
-    subscribe(callback: (arg: BlockBreakEvent) => void): (arg: BlockBreakEvent) => void;
+    subscribe(
+        callback: (arg: BlockBreakEvent) => void,
+    ): (arg: BlockBreakEvent) => void;
     /**
      * @remarks
      * Removes a callback from being called when an block is
@@ -771,8 +796,7 @@ export interface BlockBreakEventSignal {
  * Base type for components associated with blocks.
  */
 // tslint:disable-next-line:no-unnecessary-class
-export class BlockComponent {
-}
+export class BlockComponent {}
 /**
  * Contains information regarding an explosion that has
  * occurred for a specific block.
@@ -803,7 +827,9 @@ export interface BlockExplodeEventSignal {
      * occurs, as it impacts individual blocks.
      * @param callback
      */
-    subscribe(callback: (arg: BlockExplodeEvent) => void): (arg: BlockExplodeEvent) => void;
+    subscribe(
+        callback: (arg: BlockExplodeEvent) => void,
+    ): (arg: BlockExplodeEvent) => void;
     /**
      * @remarks
      * Removes a callback from being called when an explosion
@@ -859,13 +885,13 @@ export interface BlockInventoryComponentContainer extends Container {
      * empty.
      * @throws This property can throw when used.
      */
-    readonly 'emptySlotsCount': number;
+    readonly emptySlotsCount: number;
     /**
      * Returns the size capacity of the inventory container on this
      * block.
      * @throws This property can throw when used.
      */
-    readonly 'size': number;
+    readonly size: number;
     /**
      * @remarks
      * Adds an item to the specified container. Item will be placed
@@ -919,7 +945,11 @@ export interface BlockInventoryComponentContainer extends Container {
      *
      * ```
      */
-    swapItems(slot: number, otherSlot: number, otherContainer: Container): boolean;
+    swapItems(
+        slot: number,
+        otherSlot: number,
+        otherContainer: Container,
+    ): boolean;
     /**
      * @remarks
      * Moves an item from one slot to another, potentially across
@@ -937,7 +967,11 @@ export interface BlockInventoryComponentContainer extends Container {
      *
      * ```
      */
-    transferItem(fromSlot: number, toSlot: number, toContainer: Container): boolean;
+    transferItem(
+        fromSlot: number,
+        toSlot: number,
+        toContainer: Container,
+    ): boolean;
 }
 /**
  * Represents a fluid container block that currently contains
@@ -964,15 +998,15 @@ export interface BlockLocation {
     /**
      * The X coordinate.
      */
-    'x': number;
+    x: number;
     /**
      * The integer-based Y position.
      */
-    'y': number;
+    y: number;
     /**
      * The integer-based Z position.
      */
-    'z': number;
+    z: number;
     /**
      * @remarks
      * Returns a BlockLocation for a block above this BlockLocation
@@ -1044,7 +1078,7 @@ export interface BlockPermutation {
     /**
      * The {@link BlockType} that the permutation has.
      */
-    readonly 'type': BlockType;
+    readonly type: BlockType;
     /**
      * @remarks
      * Creates a copy of this permutation.
@@ -1166,7 +1200,9 @@ export interface BlockPlaceEventSignal {
      * by a player.
      * @param callback
      */
-    subscribe(callback: (arg: BlockPlaceEvent) => void): (arg: BlockPlaceEvent) => void;
+    subscribe(
+        callback: (arg: BlockPlaceEvent) => void,
+    ): (arg: BlockPlaceEvent) => void;
     /**
      * @remarks
      * Removes a callback from being called when an block is
@@ -1186,11 +1222,11 @@ export interface BlockPotionContainerComponent extends BlockComponent {
      * values are between FluidContainer.minFillLevel (0) and
      * FluidContainer.maxFillLevel (6).
      */
-    'fillLevel': number;
+    fillLevel: number;
     /**
      * Source location of the block.
      */
-    readonly 'location': BlockLocation;
+    readonly location: BlockLocation;
     /**
      * @remarks
      * Sets the potion type based on an item stack.
@@ -1872,11 +1908,11 @@ export interface BlockType {
     /**
      * Represents whether this type of block can be waterlogged.
      */
-    readonly 'canBeWaterlogged': boolean;
+    readonly canBeWaterlogged: boolean;
     /**
      * Block type name - for example, `minecraft:acacia_stairs`.
      */
-    readonly 'id': string;
+    readonly id: string;
     /**
      * @remarks
      * Creates the default {@link mojang-minecraft.BlockPermutation} for
@@ -1895,17 +1931,17 @@ export interface BlockWaterContainerComponent extends BlockComponent {
     /**
      * Represents a color facet of the water.
      */
-    'customColor': Color;
+    customColor: Color;
     /**
      * Relative level of water within this block. Valid values are
      * between FluidContainer.minFillLevel (0) and
      * FluidContainer.maxFillLevel (6).
      */
-    'fillLevel': number;
+    fillLevel: number;
     /**
      * Source location of the block.
      */
-    readonly 'location': BlockLocation;
+    readonly location: BlockLocation;
     /**
      * @remarks
      * Adds an item and colors the water based on a dye item type.
@@ -1965,7 +2001,9 @@ export interface ButtonPushEventSignal {
      * Adds a callback that will be called when a button is pushed.
      * @param callback
      */
-    subscribe(callback: (arg: ButtonPushEvent) => void): (arg: ButtonPushEvent) => void;
+    subscribe(
+        callback: (arg: ButtonPushEvent) => void,
+    ): (arg: ButtonPushEvent) => void;
     /**
      * @remarks
      * Removes a callback from being called when a button is
@@ -2146,7 +2184,7 @@ export interface Dimension {
      * Identifier of the dimension.
      * @throws This property can throw when used.
      */
-    readonly 'id': string;
+    readonly id: string;
     /**
      * @remarks
      * Creates an explosion at the specified location.
@@ -2196,7 +2234,11 @@ export interface Dimension {
      *          overworld.createExplosion(explodeNoBlocksLoc, 15, explosionOptions);
      * ```
      */
-    createExplosion(location: Location, radius: number, explosionOptions: ExplosionOptions): void;
+    createExplosion(
+        location: Location,
+        radius: number,
+        explosionOptions: ExplosionOptions,
+    ): void;
     /**
      * @remarks
      * Returns a block instance at the given location. This method
@@ -2217,7 +2259,11 @@ export interface Dimension {
      * Additional options for processing this raycast query.
      * @throws This function can throw errors.
      */
-    getBlockFromRay(location: Location, direction: Vector, options?: BlockRaycastOptions): Block;
+    getBlockFromRay(
+        location: Location,
+        direction: Vector,
+        options?: BlockRaycastOptions,
+    ): Block;
     /**
      * @remarks
      * Returns a set of entities based on a set of conditions
@@ -2265,7 +2311,11 @@ export interface Dimension {
      * Additional options for processing this raycast query.
      * @throws This function can throw errors.
      */
-    getEntitiesFromRay(location: Location, direction: Vector, options?: EntityRaycastOptions): Entity[];
+    getEntitiesFromRay(
+        location: Location,
+        direction: Vector,
+        options?: EntityRaycastOptions,
+    ): Entity[];
     /**
      * @remarks
      * Returns a set of players based on a set of conditions
@@ -2417,7 +2467,11 @@ export interface Dimension {
      * @returns
      * Newly created entity at the specified location.
      */
-    spawnParticle(effectName: string, location: Location, molangVariables: MolangVariableMap): void;
+    spawnParticle(
+        effectName: string,
+        location: Location,
+        molangVariables: MolangVariableMap,
+    ): void;
 }
 /**
  * Class used in conjunction with
@@ -2500,7 +2554,10 @@ export interface EffectAddEventSignal {
      * @param callback
      * @param options
      */
-    subscribe(callback: (arg: EffectAddEvent) => void, options?: EntityEventOptions): (arg: EffectAddEvent) => void;
+    subscribe(
+        callback: (arg: EffectAddEvent) => void,
+        options?: EntityEventOptions,
+    ): (arg: EffectAddEvent) => void;
     /**
      * @remarks
      * Removes a callback from being called when an effect is added
@@ -2546,7 +2603,7 @@ export interface EnchantmentList extends Iterable<Enchantment> {
     /**
      * The item slot/type that this collection is applied to.
      */
-    readonly 'slot': number;
+    readonly slot: number;
     [Symbol.iterator](): Iterator<Enchantment>;
     /**
      * @remarks
@@ -2639,56 +2696,56 @@ export interface Entity {
      * Dimension that the entity is currently within.
      * @throws This property can throw when used.
      */
-    readonly 'dimension': Dimension;
+    readonly dimension: Dimension;
     /**
      * Location of the center of the head component of the entity.
      * @throws This property can throw when used.
      */
-    readonly 'headLocation': Location;
+    readonly headLocation: Location;
     /**
      * Unique identifier of the entity.
      * @throws This property can throw when used.
      */
-    readonly 'id': string;
+    readonly id: string;
     /**
      * Whether the entity is sneaking - that is, moving more slowly
      * and more quietly.
      */
-    'isSneaking': boolean;
+    isSneaking: boolean;
     /**
      * Current location of the entity.
      * @throws This property can throw when used.
      */
-    readonly 'location': Location;
+    readonly location: Location;
     /**
      * Given name of the entity.
      */
-    'nameTag': string;
+    nameTag: string;
     /**
      * Main rotation of the entity.
      * @throws This property can throw when used.
      */
-    readonly 'rotation': XYRotation;
+    readonly rotation: XYRotation;
     /**
      * Returns a scoreboard identity that represents this entity.
      * @throws This property can throw when used.
      */
-    readonly 'scoreboard': ScoreboardIdentity;
+    readonly scoreboard: ScoreboardIdentity;
     /**
      * Retrieves or sets an entity that is used as the target of
      * AI-related behaviors, like attacking.
      */
-    'target': Entity;
+    target: Entity;
     /**
      * Velocity of the entity.
      * @throws This property can throw when used.
      */
-    readonly 'velocity': Vector;
+    readonly velocity: Vector;
     /**
      * Vector of the current view of the entity.
      * @throws This property can throw when used.
      */
-    readonly 'viewVector': Vector;
+    readonly viewVector: Vector;
     /**
      * @remarks
      * Adds an effect, like poison, to the entity.
@@ -2728,7 +2785,12 @@ export interface Entity {
      *          log("Created a sneaking wolf.", 1);
      * ```
      */
-    addEffect(effectType: EffectType, duration: number, amplifier?: number, showParticles?: boolean): void;
+    addEffect(
+        effectType: EffectType,
+        duration: number,
+        amplifier?: number,
+        showParticles?: boolean,
+    ): void;
     /**
      * @remarks
      * Adds a specified tag to an entity.
@@ -2879,7 +2941,10 @@ export interface Entity {
      * Data value of the property to set.
      * @throws This function can throw errors.
      */
-    setDynamicProperty(identifier: string, value: boolean | number | string): void;
+    setDynamicProperty(
+        identifier: string,
+        value: boolean | number | string,
+    ): void;
     /**
      * @remarks
      * Sets the main rotation of the entity.
@@ -2930,7 +2995,12 @@ export interface Entity {
      * @param keepVelocity
      * @throws This function can throw errors.
      */
-    teleportFacing(location: Location, dimension: Dimension, facingLocation: Location, keepVelocity?: boolean): void;
+    teleportFacing(
+        location: Location,
+        dimension: Dimension,
+        facingLocation: Location,
+        keepVelocity?: boolean,
+    ): void;
     /**
      * @remarks
      * Triggers an entity type event. For every entity, a number of
@@ -3012,58 +3082,58 @@ export interface EntityBreathableComponent extends IEntityComponent {
      * the separate properties for classes of blocks.
      * @throws This property can throw when used.
      */
-    readonly 'breatheBlocks': BlockPermutation[];
+    readonly breatheBlocks: BlockPermutation[];
     /**
      * If true, this entity can breathe in air.
      * @throws This property can throw when used.
      */
-    readonly 'breathesAir': boolean;
+    readonly breathesAir: boolean;
     /**
      * If true, this entity can breathe in lava.
      * @throws This property can throw when used.
      */
-    readonly 'breathesLava': boolean;
+    readonly breathesLava: boolean;
     /**
      * If true, this entity can breathe in solid blocks.
      * @throws This property can throw when used.
      */
-    readonly 'breathesSolids': boolean;
+    readonly breathesSolids: boolean;
     /**
      * If true, this entity can breathe in water.
      * @throws This property can throw when used.
      */
-    readonly 'breathesWater': boolean;
+    readonly breathesWater: boolean;
     /**
      * If true, this entity will have visible bubbles while in
      * water.
      * @throws This property can throw when used.
      */
-    readonly 'generatesBubbles': boolean;
+    readonly generatesBubbles: boolean;
     /**
      * Identifier of this component. Should always be
      * minecraft:breathable.
      */
-    readonly 'id': string;
+    readonly id: string;
     /**
      * Time in seconds to recover breath to maximum.
      * @throws This property can throw when used.
      */
-    readonly 'inhaleTime': number;
+    readonly inhaleTime: number;
     /**
      * List of blocks this entity can't breathe in.
      * @throws This property can throw when used.
      */
-    readonly 'nonBreatheBlocks': BlockPermutation[];
+    readonly nonBreatheBlocks: BlockPermutation[];
     /**
      * Time in seconds between suffocation damage.
      * @throws This property can throw when used.
      */
-    readonly 'suffocateTime': number;
+    readonly suffocateTime: number;
     /**
      * Time in seconds the entity can hold its breath.
      * @throws This property can throw when used.
      */
-    readonly 'totalSupply': number;
+    readonly totalSupply: number;
     /**
      * @remarks
      * Sets the current air supply of the entity.
@@ -3154,7 +3224,9 @@ export interface EntityCreateEventSignal {
      *          });
      * ```
      */
-    subscribe(callback: (arg: EntityCreateEvent) => void): (arg: EntityCreateEvent) => void;
+    subscribe(
+        callback: (arg: EntityCreateEvent) => void,
+    ): (arg: EntityCreateEvent) => void;
     /**
      * @remarks
      * Removes a callback from being called when a new entity is
@@ -3333,17 +3405,17 @@ export interface EntityHealthComponent extends IEntityComponent {
      * entity.
      * @throws This property can throw when used.
      */
-    readonly 'current': number;
+    readonly current: number;
     /**
      * Identifier of this component. Should always be
      * minecraft:health.
      */
-    readonly 'id': string;
+    readonly id: string;
     /**
      * Value for health as defined through entity components.
      * @throws This property can throw when used.
      */
-    readonly 'value': number;
+    readonly value: number;
     /**
      * @remarks
      * Resets the current health value of the entity to its default
@@ -3408,7 +3480,10 @@ export interface EntityHitEventSignal {
      * @param callback
      * @param options
      */
-    subscribe(callback: (arg: EntityHitEvent) => void, options?: EntityEventOptions): (arg: EntityHitEvent) => void;
+    subscribe(
+        callback: (arg: EntityHitEvent) => void,
+        options?: EntityEventOptions,
+    ): (arg: EntityHitEvent) => void;
     /**
      * @remarks
      * Removes a callback from being called when an entity makes a
@@ -3468,7 +3543,10 @@ export interface EntityHurtEventSignal {
      * @param callback
      * @param options
      */
-    subscribe(callback: (arg: EntityHurtEvent) => void, options?: EntityEventOptions): (arg: EntityHurtEvent) => void;
+    subscribe(
+        callback: (arg: EntityHurtEvent) => void,
+        options?: EntityEventOptions,
+    ): (arg: EntityHurtEvent) => void;
     /**
      * @remarks
      * Removes a callback from being called when an entity is hurt.
@@ -3705,18 +3783,18 @@ export interface EntityLavaMovementComponent extends IEntityComponent {
      * lava for the entity.
      * @throws This property can throw when used.
      */
-    readonly 'current': number;
+    readonly current: number;
     /**
      * Identifier of this component. Should always be
      * minecraft:lava_movement.
      */
-    readonly 'id': string;
+    readonly id: string;
     /**
      * Value for movement speed on lava as defined through entity
      * components.
      * @throws This property can throw when used.
      */
-    readonly 'value': number;
+    readonly value: number;
     /**
      * @remarks
      * Resets the current movement speed on lava for the entity to
@@ -3756,14 +3834,14 @@ export interface EntityLeashableComponent extends IEntityComponent {
      * Identifier of this component. Should always be
      * minecraft:leashable.
      */
-    readonly 'id': string;
+    readonly id: string;
     /**
      * Distance in blocks at which the 'spring' effect starts
      * acting to keep this entity close to the entity that leashed
      * it.
      * @throws This property can throw when used.
      */
-    readonly 'softDistance': number;
+    readonly softDistance: number;
     /**
      * @remarks
      * Leashes this entity to another entity.
@@ -3804,7 +3882,7 @@ export interface EntityMountTamingComponent extends IEntityComponent {
      * Identifier of this component. Should always be
      * minecraft:mount_taming.
      */
-    readonly 'id': string;
+    readonly id: string;
     /**
      * @remarks
      * Sets this rideable entity as tamed.
@@ -3854,18 +3932,18 @@ export interface EntityMovementComponent extends IEntityComponent {
      * speed for the entity.
      * @throws This property can throw when used.
      */
-    readonly 'current': number;
+    readonly current: number;
     /**
      * Identifier of this component. Should always be
      * minecraft:movement.
      */
-    readonly 'id': string;
+    readonly id: string;
     /**
      * Value for default movement speed as defined through entity
      * components.
      * @throws This property can throw when used.
      */
-    readonly 'value': number;
+    readonly value: number;
     /**
      * @remarks
      * Resets the current default movement speed value for the
@@ -4932,54 +5010,54 @@ export interface EntityRideableComponent extends IEntityComponent {
      * entity.
      * @throws This property can throw when used.
      */
-    readonly 'controllingSeat': number;
+    readonly controllingSeat: number;
     /**
      * Determines whether interactions are not supported if the
      * entity is crouching.
      * @throws This property can throw when used.
      */
-    readonly 'crouchingSkipInteract': boolean;
+    readonly crouchingSkipInteract: boolean;
     /**
      * A string-list of entity types that this entity can support
      * as riders.
      * @throws This property can throw when used.
      */
-    readonly 'familyTypes': string[];
+    readonly familyTypes: string[];
     /**
      * Identifier of this component. Should always be
      * minecraft:rideable.
      */
-    readonly 'id': string;
+    readonly id: string;
     /**
      * Set of text that should be displayed when a player is
      * looking to ride on this entity (commonly with touch-screen
      * controls).
      * @throws This property can throw when used.
      */
-    readonly 'interactText': string;
+    readonly interactText: string;
     /**
      * If true, this entity will pull in entities that are in the
      * correct family_types into any available seat.
      * @throws This property can throw when used.
      */
-    readonly 'pullInEntities': boolean;
+    readonly pullInEntities: boolean;
     /**
      * If true, this entity will be picked when looked at by the
      * rider.
      * @throws This property can throw when used.
      */
-    readonly 'riderCanInteract': boolean;
+    readonly riderCanInteract: boolean;
     /**
      * Number of seats for riders defined for this entity.
      * @throws This property can throw when used.
      */
-    readonly 'seatCount': number;
+    readonly seatCount: number;
     /**
      * The list of positions and number of riders for each position
      * for entities riding this entity.
      * @throws This property can throw when used.
      */
-    readonly 'seats': Seat[];
+    readonly seats: Seat[];
     /**
      * @remarks
      * Adds an entity to this entity as a rider.
@@ -5067,23 +5145,23 @@ export interface EntityTameableComponent extends IEntityComponent {
      * Identifier of this component. Should always be
      * minecraft:tameable.
      */
-    readonly 'id': string;
+    readonly id: string;
     /**
      * The chance of taming the entity with each item use between
      * 0.0 and 1.0, where 1.0 is 100%
      * @throws This property can throw when used.
      */
-    readonly 'probability': number;
+    readonly probability: number;
     /**
      * Event to run when this entity becomes tamed.
      * @throws This property can throw when used.
      */
-    readonly 'tameEvent': Trigger;
+    readonly tameEvent: Trigger;
     /**
      * The list of items that can be used to tame this entity.
      * @throws This property can throw when used.
      */
-    readonly 'tameItems': string[];
+    readonly tameItems: string[];
     /**
      * @remarks
      * Tames this entity.
@@ -5136,18 +5214,18 @@ export interface EntityUnderwaterMovementComponent extends IEntityComponent {
      * underwater for the entity.
      * @throws This property can throw when used.
      */
-    readonly 'current': number;
+    readonly current: number;
     /**
      * Identifier of this component. Should always be
      * minecraft:underwater_movement.
      */
-    readonly 'id': string;
+    readonly id: string;
     /**
      * Value for movement speed underwater as defined through
      * entity components.
      * @throws This property can throw when used.
      */
-    readonly 'value': number;
+    readonly value: number;
     /**
      * @remarks
      * Resets the current movement speed underwater for the entity
@@ -5411,7 +5489,9 @@ export interface ExplosionEventSignal {
      * occurs.
      * @param callback
      */
-    subscribe(callback: (arg: ExplosionEvent) => void): (arg: ExplosionEvent) => void;
+    subscribe(
+        callback: (arg: ExplosionEvent) => void,
+    ): (arg: ExplosionEvent) => void;
     /**
      * @remarks
      * Removes a callback from being called when an explosion
@@ -5498,8 +5578,7 @@ export class FeedItemEffect {
  * Represents a set of filters for when an event should occur.
  */
 // tslint:disable-next-line:no-unnecessary-class
-export class FilterGroup {
-}
+export class FilterGroup {}
 /**
  * Represents constants related to fluid containers.
  */
@@ -5549,14 +5628,14 @@ export interface InventoryComponentContainer extends Container {
      * The number of empty slots in the container.
      * @throws This property can throw when used.
      */
-    readonly 'emptySlotsCount': number;
+    readonly emptySlotsCount: number;
     /**
      * Represents the size of the container. For example, a
      * standard single-block chest has a size of 27, for the 27
      * slots in their inventory.
      * @throws This property can throw when used.
      */
-    readonly 'size': number;
+    readonly size: number;
     /**
      * @remarks
      * Adds an item to the specified container. Items will be
@@ -5611,7 +5690,11 @@ export interface InventoryComponentContainer extends Container {
      *
      * ```
      */
-    swapItems(slot: number, otherSlot: number, otherContainer: Container): boolean;
+    swapItems(
+        slot: number,
+        otherSlot: number,
+        otherContainer: Container,
+    ): boolean;
     /**
      * @remarks
      * Moves an item from one slot to another, potentially across
@@ -5629,7 +5712,11 @@ export interface InventoryComponentContainer extends Container {
      *
      * ```
      */
-    transferItem(fromSlot: number, toSlot: number, toContainer: Container): boolean;
+    transferItem(
+        fromSlot: number,
+        toSlot: number,
+        toContainer: Container,
+    ): boolean;
 }
 /**
  * Contains information related to a chargeable item completing
@@ -5661,7 +5748,9 @@ export interface ItemCompleteChargeEventSignal {
      * completes charging.
      * @param callback
      */
-    subscribe(callback: (arg: ItemCompleteChargeEvent) => void): (arg: ItemCompleteChargeEvent) => void;
+    subscribe(
+        callback: (arg: ItemCompleteChargeEvent) => void,
+    ): (arg: ItemCompleteChargeEvent) => void;
     /**
      * @remarks
      * Removes a callback from being called when a chargeable item
@@ -5681,18 +5770,18 @@ export interface ItemCooldownComponent {
      * associated with.
      * @throws This property can throw when used.
      */
-    readonly 'cooldownCategory': string;
+    readonly cooldownCategory: string;
     /**
      * Amount of time, in ticks, that remain for this item
      * cooldown.
      * @throws This property can throw when used.
      */
-    readonly 'cooldownTicks': number;
+    readonly cooldownTicks: number;
     /**
      * Identifier of this component. Should always be
      * 'minecraft:cooldown'.
      */
-    readonly 'id': string;
+    readonly id: string;
     /**
      * @remarks
      * Starts a new cooldown period for this item.
@@ -5712,7 +5801,9 @@ export interface ItemDefinitionEventSignal {
      * definition and components change.
      * @param callback
      */
-    subscribe(callback: (arg: ItemDefinitionTriggeredEvent) => void): (arg: ItemDefinitionTriggeredEvent) => void;
+    subscribe(
+        callback: (arg: ItemDefinitionTriggeredEvent) => void,
+    ): (arg: ItemDefinitionTriggeredEvent) => void;
     /**
      * @remarks
      * Removes a callback from being called when an item's
@@ -5750,24 +5841,24 @@ export interface ItemDurabilityComponent {
     /**
      * Returns the current damage level of this particular item.
      */
-    'damage': number;
+    damage: number;
     /**
      * A range of numbers that describes the chance of the item
      * losing durability.
      * @throws This property can throw when used.
      */
-    readonly 'damageRange': NumberRange;
+    readonly damageRange: NumberRange;
     /**
      * Identifier of this component. Should always be
      * 'minecraft:durability'.
      */
-    readonly 'id': string;
+    readonly id: string;
     /**
      * Represents the amount of damage that this item can take
      * before breaking.
      * @throws This property can throw when used.
      */
-    readonly 'maxDurability': number;
+    readonly maxDurability: number;
     /**
      * @remarks
      * Returns the maximum chance that this item would be damaged
@@ -5790,11 +5881,11 @@ export interface ItemEnchantsComponent {
      * Returns a collection of the enchantments applied to this
      * item stack.
      */
-    'enchantments': EnchantmentList;
+    enchantments: EnchantmentList;
     /**
      * Identifier of this component.
      */
-    readonly 'id': string;
+    readonly id: string;
     /**
      * @remarks
      * Removes all enchantments applied to this item stack.
@@ -5870,7 +5961,9 @@ export interface ItemReleaseChargeEventSignal {
      * is released from charging.
      * @param callback
      */
-    subscribe(callback: (arg: ItemReleaseChargeEvent) => void): (arg: ItemReleaseChargeEvent) => void;
+    subscribe(
+        callback: (arg: ItemReleaseChargeEvent) => void,
+    ): (arg: ItemReleaseChargeEvent) => void;
     /**
      * @remarks
      * Removes a callback from being called when a chargeable item
@@ -5902,21 +5995,21 @@ export interface ItemStack {
      * Number of the items in the stack. Valid values range between
      * 0 and 64.
      */
-    'amount': number;
+    amount: number;
     /**
      * A data value used to configure alternate states of the item.
      */
-    'data': number;
+    data: number;
     /**
      * Identifier of the type of items for the stack. If a
      * namespace is not specified, 'minecraft:' is assumed.
      * Examples include 'wheat' or 'apple'.
      */
-    readonly 'id': string;
+    readonly id: string;
     /**
      * Given name of this stack of items.
      */
-    'nameTag': string;
+    nameTag: string;
     // /**
     //  * @remarks
     //  * Creates a new instance of a stack of items for use in the
@@ -6014,7 +6107,9 @@ export interface ItemStartChargeEventSignal {
      * starts charging.
      * @param callback
      */
-    subscribe(callback: (arg: ItemStartChargeEvent) => void): (arg: ItemStartChargeEvent) => void;
+    subscribe(
+        callback: (arg: ItemStartChargeEvent) => void,
+    ): (arg: ItemStartChargeEvent) => void;
     /**
      * @remarks
      * Removes a callback from being called when a chargeable item
@@ -6062,7 +6157,9 @@ export interface ItemStartUseOnEventSignal {
      * a block.
      * @param callback
      */
-    subscribe(callback: (arg: ItemStartUseOnEvent) => void): (arg: ItemStartUseOnEvent) => void;
+    subscribe(
+        callback: (arg: ItemStartUseOnEvent) => void,
+    ): (arg: ItemStartUseOnEvent) => void;
     /**
      * @remarks
      * Removes a callback from being called when an item is used on
@@ -6104,7 +6201,9 @@ export interface ItemStopChargeEventSignal {
      * stops charging.
      * @param callback
      */
-    subscribe(callback: (arg: ItemStopChargeEvent) => void): (arg: ItemStopChargeEvent) => void;
+    subscribe(
+        callback: (arg: ItemStopChargeEvent) => void,
+    ): (arg: ItemStopChargeEvent) => void;
     /**
      * @remarks
      * Removes a callback from being called when a chargeable item
@@ -6143,7 +6242,9 @@ export interface ItemStopUseOnEventSignal {
      * used on a block.
      * @param callback
      */
-    subscribe(callback: (arg: ItemStopUseOnEvent) => void): (arg: ItemStopUseOnEvent) => void;
+    subscribe(
+        callback: (arg: ItemStopUseOnEvent) => void,
+    ): (arg: ItemStopUseOnEvent) => void;
     /**
      * @remarks
      * Removes a callback from being called when an item is used on
@@ -6185,7 +6286,9 @@ export interface ItemUseEventSignal {
      * Adds a callback that will be called when an item is used.
      * @param callback
      */
-    subscribe(callback: (arg: ItemUseEvent) => void): (arg: ItemUseEvent) => void;
+    subscribe(
+        callback: (arg: ItemUseEvent) => void,
+    ): (arg: ItemUseEvent) => void;
     /**
      * @remarks
      * Removes a callback from being called when an item is used.
@@ -6237,7 +6340,9 @@ export interface ItemUseOnEventSignal {
      * a block.
      * @param callback
      */
-    subscribe(callback: (arg: ItemUseOnEvent) => void): (arg: ItemUseOnEvent) => void;
+    subscribe(
+        callback: (arg: ItemUseOnEvent) => void,
+    ): (arg: ItemUseOnEvent) => void;
     /**
      * @remarks
      * Removes a callback from being called when an item is used on
@@ -6282,7 +6387,9 @@ export interface LeverActionEventSignal {
      * (activates or deactivates).
      * @param callback
      */
-    subscribe(callback: (arg: LeverActionEvent) => void): (arg: LeverActionEvent) => void;
+    subscribe(
+        callback: (arg: LeverActionEvent) => void,
+    ): (arg: LeverActionEvent) => void;
     /**
      * @remarks
      * Removes a callback from being called when a lever is moved
@@ -6302,15 +6409,15 @@ export interface Location {
     /**
      * X component of this location.
      */
-    'x': number;
+    x: number;
     /**
      * Y component of this location.
      */
-    'y': number;
+    y: number;
     /**
      * Z component of this location.
      */
-    'z': number;
+    z: number;
     // /**
     //  * @remarks
     //  * Creates a new instance of an abstract location.
@@ -13472,7 +13579,11 @@ export interface MolangVariableMap {
      * @param speed
      * @param direction
      */
-    setSpeedAndDirection(variableName: string, speed: number, direction: Vector): MolangVariableMap;
+    setSpeedAndDirection(
+        variableName: string,
+        speed: number,
+        direction: Vector,
+    ): MolangVariableMap;
     /**
      * @remarks
      * Sets a vector value for a Molang (rendering and animation)
@@ -13525,11 +13636,11 @@ export interface NumberRange {
     /**
      * Maximum value within a range.
      */
-    'max': number;
+    max: number;
     /**
      * Minimum value within a range.
      */
-    'min': number;
+    min: number;
     /**
      * @remarks
      * Returns a random number between the minimum and maximum of
@@ -13588,7 +13699,9 @@ export interface PistonActivateEventSignal {
      *          });
      * ```
      */
-    subscribe(callback: (arg: PistonActivateEvent) => void): (arg: PistonActivateEvent) => void;
+    subscribe(
+        callback: (arg: PistonActivateEvent) => void,
+    ): (arg: PistonActivateEvent) => void;
     /**
      * @remarks
      * Removes a callback from being called when a piston expands
@@ -13606,71 +13719,71 @@ export interface Player extends Entity {
      * Dimension that the entity is currently within.
      * @throws This property can throw when used.
      */
-    readonly 'dimension': Dimension;
+    readonly dimension: Dimension;
     /**
      * Location of the center of the head component of the player.
      * @throws This property can throw when used.
      */
-    readonly 'headLocation': Location;
+    readonly headLocation: Location;
     /**
      * Identifier for the player.
      * @throws This property can throw when used.
      */
-    readonly 'id': string;
+    readonly id: string;
     /**
      * True if the player is currently using a sneaking movement.
      */
-    'isSneaking': boolean;
+    isSneaking: boolean;
     /**
      * Current location of the player.
      * @throws This property can throw when used.
      */
-    readonly 'location': Location;
+    readonly location: Location;
     /**
      * Name of the player.
      * @throws This property can throw when used.
      */
-    readonly 'name': string;
+    readonly name: string;
     /**
      * Optional name tag of the player.
      */
-    'nameTag': string;
+    nameTag: string;
     /**
      * Contains methods for manipulating the on-screen display of a
      * Player.
      */
-    readonly 'onScreenDisplay': ScreenDisplay;
+    readonly onScreenDisplay: ScreenDisplay;
     /**
      * Main rotation of the entity.
      * @throws This property can throw when used.
      */
-    readonly 'rotation': XYRotation;
+    readonly rotation: XYRotation;
     /**
      * Returns a scoreboard identity that represents this entity.
      * @throws This property can throw when used.
      */
-    readonly 'scoreboard': ScoreboardIdentity;
+    readonly scoreboard: ScoreboardIdentity;
     /**
      * Manages the selected slot in the player's hotbar.
      */
-    'selectedSlot': number;
+    selectedSlot: number;
     /**
      * Retrieves or sets an entity that is used as the target of
      * AI-related behaviors, like attacking. For players, which
      * don't use any AI semantics, this property does not do
      * anything.
      */
-    'target': Entity;
+    target: Entity;
     /**
      * Current speed of the player across X, Y, and Z dimensions.
      * @throws This property can throw when used.
      */
-    readonly 'velocity': Vector;
+    readonly velocity: Vector;
     /**
      * Vector of the current view of the player.
      * @throws This property can throw when used.
      */
-    readonly 'viewVector': Vector;
+    readonly viewVector: Vector;
     /**
      * @remarks
      * Adds an effect, like poison, to the entity.
@@ -13683,7 +13796,12 @@ export interface Player extends Entity {
      * @param showParticles
      * @throws This function can throw errors.
      */
-    addEffect(effectType: EffectType, duration: number, amplifier?: number, showParticles?: boolean): void;
+    addEffect(
+        effectType: EffectType,
+        duration: number,
+        amplifier?: number,
+        showParticles?: boolean,
+    ): void;
     /**
      * @remarks
      * Adds a specified tag to an entity.
@@ -13854,7 +13972,10 @@ export interface Player extends Entity {
      * Data value of the property to set.
      * @throws This function can throw errors.
      */
-    setDynamicProperty(identifier: string, value: boolean | number | string): void;
+    setDynamicProperty(
+        identifier: string,
+        value: boolean | number | string,
+    ): void;
     /**
      * @remarks
      * Sets the main rotation of the entity.
@@ -13917,7 +14038,12 @@ export interface Player extends Entity {
      * @param keepVelocity
      * @throws This function can throw errors.
      */
-    teleportFacing(location: Location, dimension: Dimension, facingLocation: Location, keepVelocity?: boolean): void;
+    teleportFacing(
+        location: Location,
+        dimension: Dimension,
+        facingLocation: Location,
+        keepVelocity?: boolean,
+    ): void;
     /**
      * @remarks
      * Triggers an entity type event. For every entity, a number of
@@ -13935,19 +14061,20 @@ export interface Player extends Entity {
  * Represents the inventory of a {@link mojang-minecraft.Player} in
  * the world.
  */
-export interface PlayerInventoryComponentContainer extends InventoryComponentContainer {
+export interface PlayerInventoryComponentContainer
+    extends InventoryComponentContainer {
     /**
      * Contains a count of the slots in the container that are
      * empty.
      * @throws This property can throw when used.
      */
-    readonly 'emptySlotsCount': number;
+    readonly emptySlotsCount: number;
     /**
      * Returns the size capacity of the inventory container on this
      * block.
      * @throws This property can throw when used.
      */
-    readonly 'size': number;
+    readonly size: number;
     /**
      * @remarks
      * Adds an item to the specified container. Item will be placed
@@ -13990,7 +14117,11 @@ export interface PlayerInventoryComponentContainer extends InventoryComponentCon
      * container as this source.
      * @throws This function can throw errors.
      */
-    swapItems(slot: number, otherSlot: number, otherContainer: Container): boolean;
+    swapItems(
+        slot: number,
+        otherSlot: number,
+        otherContainer: Container,
+    ): boolean;
     /**
      * @remarks
      * Moves an item from one slot to another, potentially across
@@ -14003,7 +14134,11 @@ export interface PlayerInventoryComponentContainer extends InventoryComponentCon
      * container as the source.
      * @throws This function can throw errors.
      */
-    transferItem(fromSlot: number, toSlot: number, toContainer: Container): boolean;
+    transferItem(
+        fromSlot: number,
+        toSlot: number,
+        toContainer: Container,
+    ): boolean;
 }
 /**
  * This type is usable for iterating over a set of players.
@@ -14040,7 +14175,9 @@ export interface PlayerJoinEventSignal {
      * world.
      * @param callback
      */
-    subscribe(callback: (arg: PlayerJoinEvent) => void): (arg: PlayerJoinEvent) => void;
+    subscribe(
+        callback: (arg: PlayerJoinEvent) => void,
+    ): (arg: PlayerJoinEvent) => void;
     /**
      * @remarks
      * Removes a callback from being called when a player joins the
@@ -14071,7 +14208,9 @@ export interface PlayerLeaveEventSignal {
      * world.
      * @param callback
      */
-    subscribe(callback: (arg: PlayerLeaveEvent) => void): (arg: PlayerLeaveEvent) => void;
+    subscribe(
+        callback: (arg: PlayerLeaveEvent) => void,
+    ): (arg: PlayerLeaveEvent) => void;
     /**
      * @remarks
      * Removes a callback from being called when a player leaves
@@ -14128,7 +14267,9 @@ export interface ProjectileHitEventSignal {
      * an entity or block.
      * @param callback
      */
-    subscribe(callback: (arg: ProjectileHitEvent) => void): (arg: ProjectileHitEvent) => void;
+    subscribe(
+        callback: (arg: ProjectileHitEvent) => void,
+    ): (arg: ProjectileHitEvent) => void;
     /**
      * @remarks
      * Removes a callback from being called when a projectile hits
@@ -14162,7 +14303,9 @@ export interface PropertyRegistry {
      * @param propertiesDefinition
      * @throws This function can throw errors.
      */
-    registerWorldDynamicProperties(propertiesDefinition: DynamicPropertiesDefinition): void;
+    registerWorldDynamicProperties(
+        propertiesDefinition: DynamicPropertiesDefinition,
+    ): void;
 }
 /**
  * Contains objectives and participants for the scoreboard.
@@ -14195,15 +14338,15 @@ export interface ScoreboardIdentity {
     /**
      * Returns the player-visible name of this identity.
      */
-    readonly 'displayName': string;
+    readonly displayName: string;
     /**
      * Identifier of the scoreboard identity.
      */
-    readonly 'id': number;
+    readonly id: number;
     /**
      * Type of the scoreboard identity.
      */
-    readonly 'type': ScoreboardIdentityType;
+    readonly type: ScoreboardIdentityType;
     /**
      * @remarks
      * If the scoreboard identity is an entity or player, returns
@@ -14221,12 +14364,12 @@ export interface ScoreboardObjective {
      * objective.
      * @throws This property can throw when used.
      */
-    readonly 'displayName': string;
+    readonly displayName: string;
     /**
      * Identifier of the scoreboard objective.
      * @throws This property can throw when used.
      */
-    readonly 'id': string;
+    readonly id: string;
     /**
      * @remarks
      * Returns all objective participant identities.
@@ -14428,7 +14571,7 @@ export interface Trigger {
     /**
      * Event name of the trigger.
      */
-    'eventName': string;
+    eventName: string;
     // constructor(eventName: string);
 }
 /**
@@ -14438,15 +14581,15 @@ export interface Vector {
     /**
      * X component of this vector.
      */
-    'x': number;
+    x: number;
     /**
      * Y component of this vector.
      */
-    'y': number;
+    y: number;
     /**
      * Z component of this vector.
      */
-    'z': number;
+    z: number;
     // /**
     //  * A constant vector that represents (0, 0, -1).
     //  */
@@ -14613,7 +14756,9 @@ export interface WeatherChangeEventSignal {
      * Adds a callback that will be called when weather changes.
      * @param callback
      */
-    subscribe(callback: (arg: WeatherChangeEvent) => void): (arg: WeatherChangeEvent) => void;
+    subscribe(
+        callback: (arg: WeatherChangeEvent) => void,
+    ): (arg: WeatherChangeEvent) => void;
     /**
      * @remarks
      * Removes a callback from being called when weather changes.
@@ -14631,12 +14776,12 @@ export interface World {
      * Contains a set of events that are applicable to the entirety
      * of the world.
      */
-    readonly 'events': Events;
+    readonly events: Events;
     /**
      * Returns the general global scoreboard that applies to the
      * world.
      */
-    readonly 'scoreboard': Scoreboard;
+    readonly scoreboard: Scoreboard;
     /**
      * @param dimensionId
      * @returns
@@ -14701,7 +14846,10 @@ export interface World {
      * Data value of the property to set.
      * @throws This function can throw errors.
      */
-    setDynamicProperty(identifier: string, value: boolean | number | string): void;
+    setDynamicProperty(
+        identifier: string,
+        value: boolean | number | string,
+    ): void;
     /**
      * @remarks
      * Stops any music tracks from playing.
@@ -14750,7 +14898,9 @@ export interface WorldInitializeEventSignal {
      * environment is initialized for a World.
      * @param callback
      */
-    subscribe(callback: (arg: WorldInitializeEvent) => void): (arg: WorldInitializeEvent) => void;
+    subscribe(
+        callback: (arg: WorldInitializeEvent) => void,
+    ): (arg: WorldInitializeEvent) => void;
     /**
      * @remarks
      * Removes a callback from being called the scripting
