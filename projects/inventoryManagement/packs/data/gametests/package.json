@@ -32,7 +32,7 @@
         "quality_inner": "eslint src --ext ts",
         "test": "vitest",
         "testonce": "vitest run",
-        "validate": "tsc && npm run quality && npm run testonce && npm run format && npm run packagejson",
+        "validate": "tsc && npm run quality && npm run testonce && npm run format && npm run packagejson && echo :)",
         "validate//": "echo Ensure everything with the project is working correctly"
     },
     "lint-staged": {
