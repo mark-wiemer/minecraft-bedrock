@@ -31,14 +31,14 @@
         "quality_fix": "npm run quality_inner -- --fix",
         "quality_inner": "eslint src --ext ts",
         "test": "vitest",
-        "validate": "tsc && npm run quality && npm run test -- run && npm run format && npm run packagejson",
+        "testonce": "vitest run",
+        "validate": "tsc && npm run quality && npm run testonce && npm run format && npm run packagejson",
         "validate//": "echo Ensure everything with the project is working correctly"
     },
     "lint-staged": {
         "*": "prettier --check",
         "src/*": [
-            "npm run quality_inner",
-            "tsc --noEmit"
+            "npm run validate"
         ],
         "package.json": "npm run packagejson"
     },
