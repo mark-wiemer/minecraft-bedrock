@@ -1,0 +1,6 @@
+#!/bin/sh
+. "$(dirname "$0")/_/husky.sh"
+
+cd projects/inventoryManagement/packs/data/gametests/
+npx lint-staged
+npm run test -- run
