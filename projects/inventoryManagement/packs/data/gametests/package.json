@@ -32,13 +32,15 @@
         "quality_inner": "eslint src --ext ts",
         "test": "vitest",
         "testonce": "vitest run",
-        "validate": "tsc && npm run quality && npm run testonce && npm run format && npm run packagejson && echo :)",
-        "validate//": "echo Ensure everything with the project is working correctly"
+        "validate": "npm run validate_source && npm run format && npm run packagejson && echo :)",
+        "validate//": "echo Ensure everything with the project is working correctly",
+        "validate_source": "tsc && npm run quality && npm run testonce",
+        "validate_source//": "Validations specific to code files"
     },
     "lint-staged": {
-        "*": "prettier --check",
+        "*": "npm run format",
         "src/*": [
-            "npm run validate"
+            "npm run validate_source"
         ],
         "package.json": "npm run packagejson"
     },
