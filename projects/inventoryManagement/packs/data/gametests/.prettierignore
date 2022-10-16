@@ -1,0 +1,9 @@
+# From .gitignore
+
+node_modules
+
+# Additional files to ignore
+
+package-lock.json
+.husky/**/*
+extra_files/**
