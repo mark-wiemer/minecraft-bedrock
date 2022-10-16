@@ -1,0 +1,25 @@
+{
+  "name": "mcbe-inventory-management",
+  "version": "0.1.0",
+  "description": "Minecraft Bedrock add-on to sort, upload, download, and do more with inventories",
+  "main": "index.js",
+  "scripts": {
+    "build": "rm -rf packs/data/gametests/node_modules && regolith run && cd packs/data/gametests && npm install",
+    "build//": "Remove unnecessary files, build project, and re-add files",
+    "test": "vitest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mark-wiemer/minecraft-bedrock.git"
+  },
+  "keywords": [
+    "Minecraft",
+    "Regolith"
+  ],
+  "author": "Mark Wiemer",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/mark-wiemer/minecraft-bedrock/issues"
+  },
+  "homepage": "https://github.com/mark-wiemer/minecraft-bedrock#readme"
+}
