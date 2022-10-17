@@ -1,0 +1,18 @@
+{
+  "format_version": 2,
+  "header": {
+    "name": "Hello JSON UI",
+    "description": "Custom JSON UI following https://wiki.bedrock.dev/json-ui/add-hud-elements.html",
+    "uuid": "b3c94faf-f74b-46ba-8f69-04ef0322c043",
+    "version": [1, 0, 0],
+    "min_engine_version": [1, 19, 0]
+  },
+  "modules": [
+    {
+      "description": "Module for custom JSON UI",
+      "type": "resources",
+      "uuid": "cdead1b5-3b63-4860-a088-939753a2ae09",
+      "version": [1, 0, 0]
+    }
+  ]
+}
