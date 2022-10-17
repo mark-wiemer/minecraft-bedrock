@@ -15,15 +15,6 @@
       "uuid": "7c7e693f-99f4-41a9-95e0-1f57b37e1e12",
       "version": [0, 0, 1],
       "entry": "scripts/main.js"
-    },
-
-    {
-      "description": "Tests",
-      "language": "javascript",
-      "type": "script",
-      "uuid": "ba8b5d03-3bec-4111-bd23-403f7b062cef",
-      "version": [0, 0, 1],
-      "entry": "scripts/gametests.js"
     }
   ],
   "dependencies": [

@@ -4,9 +4,11 @@ export default {
     '*': 'npm run format',
     // If any source file changes, validate all source files for simplicity
     'src/*': (files) => {
-        return `npm run quality_glob ${files.join(
-            ' ',
-        )} && tsc -p tsconfig.json && npm run testonce`;
+        return [
+            `npm run quality_glob ${files.join(' ')}`,
+            `tsc -p tsconfig.json`,
+            `npm run testonce`,
+        ];
     },
     'package.json': 'npm run packagejson',
 };
