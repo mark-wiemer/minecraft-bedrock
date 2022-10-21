@@ -40,5 +40,6 @@ Explore the repo to find which pack is used for each bit of work. Also explore t
 
 ### Current work
 
+- Understanding custom items. See [Project Hello Items](./projects/helloItems)
 - Setting up a continuous workflow template project. See [Project Inventory Management](./projects/inventoryManagement/)
 - Inventory management mods in Minecraft Bedrock! See [Project Inventory Management](./projects/inventoryManagement/)
