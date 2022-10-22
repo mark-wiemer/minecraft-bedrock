@@ -5,8 +5,7 @@
   "main": "index.js",
   "scripts": {
     "build": "rm -rf packs/data/gametests/node_modules && regolith run && cd packs/data/gametests && npm install",
-    "build//": "Remove unnecessary files, build project, and re-add files",
-    "test": "vitest"
+    "build//": "Remove unnecessary files, build project, and re-add files"
   },
   "repository": {
     "type": "git",
