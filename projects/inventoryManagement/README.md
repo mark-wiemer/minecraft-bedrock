@@ -12,6 +12,10 @@ Not much yet!
 
 1. Project framework set up to allow instant unit testing
 
+## Current work
+
+Gathering information on max stack size of items
+
 ## Planned features
 
 - Sort items in inventory
@@ -21,6 +25,7 @@ Not much yet!
   - Fill stacks: Upload only items to fill existing stacks, not add new stacks
   - Existing only: Upload only items that already are present in that chest
   - Lock slots in inventory: Probably through `!` commands until Ore UI comes out
+- Gracefully exit on unrecognized items / failed sort
 
 ## Ideal features
 
@@ -30,6 +35,7 @@ Not much yet!
 - Network sort: Sort across multiple chests at once
   - Hit one chest, that spreads to detect all nearby chests, and "network sorts" so only any given item type is only present in one chest
   - Select a range like `/fill` command and sort according to that range
+- Support custom items: Add their max stack value via `!` commands
 
 ## Roadmap
 
