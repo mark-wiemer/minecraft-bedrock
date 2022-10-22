@@ -25,6 +25,10 @@
     {
       "module_name": "mojang-minecraft-ui",
       "version": "1.0.0-beta"
+    },
+    {
+      "uuid": "f5e8da12-e017-4b1e-bcc6-2dc83e8f90c9",
+      "version": [1, 0, 0]
     }
   ]
 }

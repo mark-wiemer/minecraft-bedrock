@@ -1,0 +1,18 @@
+{
+  "format_version": 2,
+  "header": {
+    "name": "RP for Inventory Management",
+    "description": "Custom items to manage your inventory",
+    "uuid": "f5e8da12-e017-4b1e-bcc6-2dc83e8f90c9",
+    "version": [1, 0, 0],
+    "min_engine_version": [1, 19, 30]
+  },
+  "modules": [
+    {
+      "description": "Inventory management items",
+      "type": "resources",
+      "uuid": "06884be3-4223-4d97-bd24-db54a0f4e30c",
+      "version": [1, 0, 0]
+    }
+  ]
+}
