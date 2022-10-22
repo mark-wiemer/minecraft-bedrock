@@ -18,11 +18,13 @@ export const add = (a: number, b: number) => a + b;
 type SimpleItemStack = Pick<ItemStack, 'amount' | 'id'>;
 
 export const sortInventory = (
-    unsortedInventory: SimpleItemStack[],
+    unsortedInventory: (SimpleItemStack | undefined)[],
 ): SimpleItemStack[] => {
     const sortedInventory: SimpleItemStack[] = [];
 
-    for (let itemStack of unsortedInventory) {
+    (
+        unsortedInventory.filter((x) => x !== undefined) as SimpleItemStack[]
+    ).forEach((itemStack) => {
         const sortedStack = sortedInventory.find(
             (sortedStack) => sortedStack.id === itemStack.id,
         );
@@ -31,7 +33,7 @@ export const sortInventory = (
         } else {
             sortedInventory.push(itemStack);
         }
-    }
+    });
 
     return sortedInventory;
 };
