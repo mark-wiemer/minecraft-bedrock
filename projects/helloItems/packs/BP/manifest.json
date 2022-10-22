@@ -1,0 +1,24 @@
+{
+  "format_version": 2,
+  "header": {
+    "name": "Hello items BP!",
+    "description": "Behavior pack that adds my first item",
+    "uuid": "16d38839-d71a-4ffd-92f7-08dd6408ece9",
+    "version": [1, 0, 0],
+    "min_engine_version": [1, 19, 30]
+  },
+  "modules": [
+    {
+      "description": "My First Add-On!",
+      "type": "data",
+      "uuid": "95777eda-0e58-482e-88fa-d0f426fe8961",
+      "version": [1, 0, 0]
+    }
+  ],
+  "dependencies": [
+    {
+      "uuid": "04efff6d-b4f4-447f-96fa-a8eac99c7d57",
+      "version": [1, 0, 0]
+    }
+  ]
+}
