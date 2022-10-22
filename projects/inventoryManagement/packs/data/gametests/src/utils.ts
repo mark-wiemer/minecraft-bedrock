@@ -1,15 +1,15 @@
-import { TickEvent, World } from './minecraft.types';
+import { TickEvent, TicksPerSecond, World } from './minecraft.types';
 
-export const onTickEvent = (tickEvent: TickEvent, world: World): void => {
-    const shouldTrigger = tickEvent.currentTick % 100 === 0;
+/** Every 5 seconds, announce the total number of seconds that have elapsed */
+export const announceSeconds = (tickEvent: TickEvent, world: World): void => {
+    const tickNum = tickEvent.currentTick;
+    const shouldTrigger = tickNum % 100 === 0;
     const playerCount = [...world.getPlayers()].length;
     if (shouldTrigger && playerCount > 0) {
-        const seconds = tickEvent.currentTick / 20;
+        const seconds = tickNum / TicksPerSecond;
         world
             .getDimension('overworld')
-            .runCommand(
-                `tellraw @a {"rawtext":[{"text":"It has been ${seconds} seconds"}]}`,
-            );
+            .runCommandAsync(`say It has been ${seconds} seconds`);
     }
 };
 
