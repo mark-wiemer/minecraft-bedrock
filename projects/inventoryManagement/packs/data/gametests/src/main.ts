@@ -3,13 +3,13 @@ import {
     InventoryComponentContainer,
     Items,
     ItemStack,
-    Player,
+    // Player,
     world,
 } from 'mojang-minecraft';
 import { announceSeconds } from './utils';
 
-const log = (msg: string | number) =>
-    world.getDimension('overworld').runCommandAsync(`say ${msg}`);
+// const log = (msg: string | number) =>
+//     world.getDimension('overworld').runCommandAsync(`say ${msg}`);
 
 world.events.tick.subscribe((tickEvent) => announceSeconds(tickEvent, world));
 world.events.tick.subscribe((tickEvent) => {
@@ -32,22 +32,13 @@ world.events.tick.subscribe((tickEvent) => {
     inventory.setItem(slot, new ItemStack(Items.get('minecraft:apple'), slot));
 });
 
-world.events.beforeItemUse.subscribe((event) => {
-    const player = event.source;
-    if (!(player instanceof Player)) {
-        return;
-    }
+// world.events.beforeItemUse.subscribe((event) => {
+//     const player = event.source;
+//     if (!(player instanceof Player)) {
+//         return;
+//     }
 
-    const inventory: EntityInventoryComponent = player.getComponent(
-        'inventory',
-    ) as EntityInventoryComponent;
-
-    log(inventory.container.size);
-
-    inventory.container.setItem(
-        27,
-        new ItemStack(Items.get('minecraft:diamond_hoe')),
-    );
-
-    inventory.container.addItem(new ItemStack(Items.get('minecraft:apple')));
-});
+//     const inventory: InventoryComponentContainer = (
+//         player.getComponent('inventory') as EntityInventoryComponent
+//     ).container;
+// });

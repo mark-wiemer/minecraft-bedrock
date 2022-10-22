@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 
-import { add } from './utils';
+import { add, sortInventory } from './utils';
 
 describe('add', () => {
     it.each([
@@ -9,5 +9,21 @@ describe('add', () => {
         [2, -1, 1],
     ])('%s + %s = %s', async (...args) =>
         expect(add(args[0], args[1])).toBe(args[2]),
+    );
+});
+
+describe('sortInventory', () => {
+    it.each([
+        [
+            'merge stacks',
+            [
+                { id: 'apple', amount: 1 },
+                { id: 'apple', amount: 2 },
+            ],
+            [{ id: 'apple', amount: 3 }],
+        ],
+        // eslint-disable-next-line no-unused-vars
+    ])('%s', async (...[name, unsortedInventory, expected]) =>
+        expect(sortInventory(unsortedInventory)).toEqual(expected),
     );
 });
