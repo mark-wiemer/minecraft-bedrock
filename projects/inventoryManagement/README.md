@@ -43,4 +43,6 @@ Not much yet!
 
 To learn more about how I built this specific add-on, check out these resources:
 
-1. [Official block inventory manipulation code sample](https://learn.microsoft.com/en-us/minecraft/creator/scriptapi/mojang-minecraft/blockinventorycomponent#place_items_in_chestjs)
+[Official block inventory manipulation code sample](https://learn.microsoft.com/en-us/minecraft/creator/scriptapi/mojang-minecraft/blockinventorycomponent#place_items_in_chestjs)
+
+Slot indexing: Hotbar is 0-8, left-to-right. Then top-left is 9 and bottom right (just above hotbar) is 35, row-major order.
