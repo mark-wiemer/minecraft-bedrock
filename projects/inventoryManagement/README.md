@@ -38,3 +38,9 @@ Not much yet!
 1. Support double chests
 1. Basic upload inventory
 1. Advanced upload inventory
+
+## Resources
+
+To learn more about how I built this specific add-on, check out these resources:
+
+1. [Official block inventory manipulation code sample](https://learn.microsoft.com/en-us/minecraft/creator/scriptapi/mojang-minecraft/blockinventorycomponent#place_items_in_chestjs)
