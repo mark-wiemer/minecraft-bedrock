@@ -1,4 +1,4 @@
-import { world } from 'mojang-minecraft';
+import { World, world } from 'mojang-minecraft';
 import { onTickEvent } from './utils';
 
 import {
@@ -29,9 +29,21 @@ world.events.tick.subscribe((tickEvent) => {
     // Set slot 0 to a stack of 10 apples
     inventoryContainer.setItem(0, new ItemStack(Items.get('apple'), 10, 0));
 
+    // world
+    //     .getDimension('overworld')
+    //     .runCommandAsync(
+    //         'tellraw @a {"rawtext":[{"text":"THE CHEST IS HERE"}]}',
+    //     );
+});
+
+const log = (world: World, msg: string) =>
     world
         .getDimension('overworld')
-        .runCommandAsync(
-            'tellraw @a {"rawtext":[{"text":"THE CHEST IS HERE"}]}',
-        );
-});
+        .runCommandAsync(`tellraw @a {"rawtext":[{"text":"${msg}"}]}`);
+
+world.events.beforeItemUse.subscribe(() => log(world, 'beforeItemUse'));
+world.events.beforeItemUseOn.subscribe(() => log(world, '.beforeItemUseOn'));
+world.events.itemStartUseOn.subscribe(() => log(world, '.itemStartUseOn'));
+world.events.itemStopUseOn.subscribe(() => log(world, '.itemStopUseOn'));
+world.events.itemUse.subscribe(() => log(world, '.itemUse'));
+world.events.itemUseOn.subscribe(() => log(world, '.itemUseOn'));
