@@ -13,8 +13,6 @@ export const announceSeconds = (tickEvent: TickEvent, world: World): void => {
     }
 };
 
-export const add = (a: number, b: number) => a + b;
-
 type SimpleItemStack = Pick<ItemStack, 'amount' | 'id'>;
 
 export const sortInventory = (
