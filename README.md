@@ -1,8 +1,8 @@
-## Minecraft Bedrock Edition projects
+# Minecraft: Bedrock Edition projects
 
-General repo for add-ons, mods, links, etc. for Minecraft Bedrock
+General repo for add-ons, mods, links, etc. for Minecraft: Bedrock Edition
 
-## How to build Minecraft Bedrock add-ons
+## How to build Minecraft add-ons
 
 Ever wanted to mod Minecraft, but not sure where to get started? Here are some links I found that were super helpful for me!
 
@@ -17,7 +17,7 @@ These links are for Minecraft Bedrock Edition. Historically, add-on support (AKA
 - [List and summary of commands (Minecraft fandom)](https://minecraft.fandom.com/wiki/Commands#List_and_summary_of_commands): Most advanced mods will be running some commands. This community-supported wiki is the best resource for learning each and every command
 - [Bedrock OSS](https://github.com/Bedrock-OSS): Bedrock OSS is a great centralized community around building Minecraft mods. The Discord is popular, the wiki is awesome, and the supported projects are top-notch. And it's getting better all the time!
 
-And remember -- be patient, ask for help, and always be curious! Modding is hard work, and it'll take a lot of time, energy, and boring research to create something awesome. But I promise it's worth it!
+Be patient, ask for help, and always be curious! Modding is hard work, and it'll take a lot of time, energy, and boring research to create something awesome. But I promise it's worth it!
 
 ## Other resources
 
