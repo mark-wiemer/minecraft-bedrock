@@ -4,9 +4,7 @@ General repo for add-ons, mods, links, etc. for Minecraft: Bedrock Edition
 
 ## How to build Minecraft add-ons
 
-Ever wanted to mod Minecraft, but not sure where to get started? Here are some links I found that were super helpful for me!
-
-These links are for Minecraft Bedrock Edition. Historically, add-on support (AKA mod support) for this edition has been poor. But as a software engineer I can say I've found great support now! It's definitely worth looking into.
+Ever wanted to mod Minecraft, but not sure where to get started? Here are some resources I used!
 
 - [Minecraft: Bedrock Edition Creator Documentation - Microsoft Learn](https://learn.microsoft.com/en-us/minecraft/creator): This is the official Microsoft-supported main page for everything creators need to know to get started making resource packs and behavior packs.
 - [Getting Started with Add-On Development for Bedrock Edition](https://learn.microsoft.com/en-us/minecraft/creator/documents/gettingstarted): These guides show you exactly how to build your first resource pack and your first behavior pack, from start to finish.
@@ -24,6 +22,10 @@ Be patient, ask for help, and always be curious! Modding is hard work, and it'll
 - [Minecraft changelog](https://feedback.minecraft.net/hc/en-us/sections/360001186971-Release-Changelogs): Sometimes when Minecraft changes, our add-ons will break until we make our own changes. Always check the changelog!
 - [Regolith](https://bedrock-oss.github.io/regolith): Regolith is an add-on compiler. It helps you build complex add-ons without worrying about making mistakes adjusting filenames or doing other tedious work.
 - [Polished Quartz](https://github.com/mark-wiemer/mcbr-polished-quartz): A separate template project for easy copying.
+
+## Notes on the archive
+
+This repo has a lot of old projects that are no longer compatible with the latest version of Minecraft. I can't promise I'll ever fixup all archived projects, so read that code with caution.
 
 ### Completed work
 
