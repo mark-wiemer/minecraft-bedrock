@@ -37,10 +37,10 @@ Explore the repo to find which pack is used for each bit of work. Also explore t
 - Getting a custom TS pack to update when player leaves and rejoins the game. See [Project Smooth Stone](./projects/archive/smoothStone/README.md)
 - Mastering the project initialization process. See [Project Marble](./projects/archive/marble/README.md)
 - Awesome Zombie Fighting add-on! See [Project Z-War](./projects/archive/zombieWar/README.md)
-- Learn how to use [Regolith](https://github.com/Bedrock-OSS/regolith). See [Project Hello Regolith](./projects/archive/helloRegolith/)
+- Learn how to use [Regolith](https://github.com/Bedrock-OSS/regolith). See [Project Hello Regolith](./projects/archive/helloRegolith)
 
 ### Current work
 
 - Understanding custom items. See [Project Hello Items](./projects/helloItems)
-- Setting up a continuous workflow template project. See [Project Inventory Management](./projects/inventoryManagement/)
-- Inventory management mods in Minecraft Bedrock! See [Project Inventory Management](./projects/inventoryManagement/)
+- Setting up a continuous workflow template project. See [Project Inventory Management](./projects/archive/inventoryManagement)
+- Inventory management mods in Minecraft Bedrock! See [Project Inventory Management](./projects/archive/inventoryManagement)

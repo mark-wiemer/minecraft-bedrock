@@ -25,7 +25,7 @@
         "packagejson//": "echo Check whether package.json is sorted or sort it",
         "packagejson_fix": "npm run packagejson_inner",
         "packagejson_inner": "sort-package-json",
-        "prepare": "cd ../../../../.. && husky install projects/inventoryManagement/packs/data/gametests/.husky",
+        "prepare": "cd ../../../../../.. && husky install projects/archive/inventoryManagement/packs/data/gametests/.husky",
         "prepare//": "echo https://typicode.github.io/husky/#/?id=custom-directory",
         "quality": "npm run quality_all -- --max-warnings=0 && echo No quality problems",
         "quality//": "echo Checks code quality for common mistakes",
