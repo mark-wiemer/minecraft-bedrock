@@ -4,7 +4,7 @@
 
 This isn't a project. It's a template for a project that uses TypeScript!
 
-These files are adapted from the [official docs](https://learn.microsoft.com/en-us/minecraft/creator/documents/scriptinggettingstarted#getting-started)).
+These files are adapted from the [official docs](https://learn.microsoft.com/en-us/minecraft/creator/documents/scriptinggettingstarted#getting-started).
 
 ## Get started with project development
 

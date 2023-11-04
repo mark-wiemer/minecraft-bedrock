@@ -1,3 +1,6 @@
+// Types from @minecraft/server@1.0.0-beta
+// These should be updated for compatibility with newer versions of Minecraft.
+
 export interface World {
   getDimension(dimensionId: string): Dimension;
   /**
