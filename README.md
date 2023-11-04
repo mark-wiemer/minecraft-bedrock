@@ -8,13 +8,13 @@ Ever wanted to mod Minecraft, but not sure where to get started? Here are some l
 
 These links are for Minecraft Bedrock Edition. Historically, add-on support (AKA mod support) for this edition has been poor. But as a software engineer I can say I've found great support now! It's definitely worth looking into.
 
-- [Microsoft Learn homepage](https://learn.microsoft.com/en-us/minecraft/creator/): This is the official Microsoft-supported main page for everything creators need to know to get started making resource packs and behavior packs.
+- [Minecraft: Bedrock Edition Creator Documentation - Microsoft Learn](https://learn.microsoft.com/en-us/minecraft/creator): This is the official Microsoft-supported main page for everything creators need to know to get started making resource packs and behavior packs.
 - [Getting Started with Add-On Development for Bedrock Edition](https://learn.microsoft.com/en-us/minecraft/creator/documents/gettingstarted): These guides show you exactly how to build your first resource pack and your first behavior pack, from start to finish.
 - [Molang: a Beginner's Guide](https://learn.microsoft.com/en-us/minecraft/creator/documents/molangbeginnersguide): Molang is a fancy Mojang programming language that can be useful for writing some advanced add-ons.
 - [Introduction to the GameTest Framework](https://learn.microsoft.com/en-us/minecraft/creator/documents/gametestgettingstarted): This is the best way to test games, and it uses JavaScript, the most popular programming language in the world!
 - [Build a gameplay experience with TypeScript](https://learn.microsoft.com/en-us/minecraft/creator/documents/scriptinggettingstarted): TypeScript is Microsoft's copy of JavaScript, it's popular and becoming more popular! Writing mods in TypeScript allows you to add any functionality you can imagine to your mod!
 - [@minecraft/server Module](https://learn.microsoft.com/en-us/minecraft/creator/scriptapi/minecraft/server/minecraft-server): This module and the others near it are how we can access Minecraft values with our TypeScript code. It's technical, but a great resource.
-- [List and summary of commands (Minecraft fandom)](https://minecraft.fandom.com/wiki/Commands#List_and_summary_of_commands): Most advanced mods will be running some commands. This community-supported wiki is the best resource for learning each and every command
+- [List and summary of commands - Minecraft Wiki](https://minecraft.wiki/w/Commands#List_and_summary_of_commands): Most advanced mods will be running some commands. This community-supported wiki is the best resource for learning each and every command
 - [Bedrock OSS](https://github.com/Bedrock-OSS): Bedrock OSS is a great centralized community around building Minecraft mods. The Discord is popular, the wiki is awesome, and the supported projects are top-notch. And it's getting better all the time!
 
 Be patient, ask for help, and always be curious! Modding is hard work, and it'll take a lot of time, energy, and boring research to create something awesome. But I promise it's worth it!
@@ -22,7 +22,7 @@ Be patient, ask for help, and always be curious! Modding is hard work, and it'll
 ## Other resources
 
 - [Minecraft changelog](https://feedback.minecraft.net/hc/en-us/sections/360001186971-Release-Changelogs): Sometimes when Minecraft changes, our add-ons will break until we make our own changes. Always check the changelog!
-- [Regolith](https://github.com/Bedrock-OSS/regolith): Regolith is an add-on compiler. It helps you build complex add-ons without worrying about making mistakes adjusting filenames or doing other tedious work.
+- [Regolith](https://bedrock-oss.github.io/regolith): Regolith is an add-on compiler. It helps you build complex add-ons without worrying about making mistakes adjusting filenames or doing other tedious work.
 - [Polished Quartz](https://github.com/mark-wiemer/mcbr-polished-quartz): A separate template project for easy copying.
 
 ### Completed work
