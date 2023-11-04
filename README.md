@@ -23,6 +23,7 @@ Be patient, ask for help, and always be curious! Modding is hard work, and it'll
 
 - [Minecraft changelog](https://feedback.minecraft.net/hc/en-us/sections/360001186971-Release-Changelogs): Sometimes when Minecraft changes, our add-ons will break until we make our own changes. Always check the changelog!
 - [Regolith](https://github.com/Bedrock-OSS/regolith): Regolith is an add-on compiler. It helps you build complex add-ons without worrying about making mistakes adjusting filenames or doing other tedious work.
+- [Polished Quartz](https://github.com/mark-wiemer/mcbr-polished-quartz): A separate template project for easy copying.
 
 ### Completed work
 
