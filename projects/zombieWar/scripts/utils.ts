@@ -44,11 +44,13 @@ export const tryTo = <T extends any[], R>(callback: (...args: T) => R, args: T, 
   }
 };
 
-export const isZombie = (entity: Pick<Entity, "id">): boolean => {
+export const isZombie = (entity: Pick<Entity, "typeId">): boolean => {
   try {
-    return entity.id.includes("zombie");
+    const result = entity.typeId.includes("zombie");
+    trace(`isZombie(${entity.typeId}): ${result}`);
+    return result;
   } catch {
-    warn(`Couldn't get entity ID`);
+    warn(`Couldn't get entity typeId`);
   }
   return false;
 };
@@ -63,7 +65,9 @@ export const zombieDied = (hitEvent: EntityHitEntityAfterEvent): boolean => {
     warn(`Couldn't get hurt entity health`);
   }
 
-  return victimHealth <= 0 && isZombie(victim);
+  const result = victimHealth <= 0 && isZombie(victim);
+  trace(`zombieDied(): ${result}`);
+  return result;
 };
 
 /** Returns name of player that caused the hurt event. If the event wasn't caused by a player, returns empty string. */

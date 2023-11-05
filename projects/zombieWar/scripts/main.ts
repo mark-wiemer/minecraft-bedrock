@@ -335,6 +335,7 @@ const updateEquipment = (player: Player, score: number): void => {
 };
 
 const onEntityHit = (hitEvent: EntityHitEntityAfterEvent): void => {
+  trace("Entity hit!");
   if (zombieDied(hitEvent)) {
     /** The name of the attacking player. If the attacker is not a player, this is falsy. */
     const name: string = attackingPlayerName(hitEvent);
