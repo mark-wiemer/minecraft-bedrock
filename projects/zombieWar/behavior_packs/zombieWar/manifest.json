@@ -5,7 +5,7 @@
     "description": "Can you survive?",
     "uuid": "b3cd4457-ac8e-454e-b3ed-e9f54944a3cc",
     "version": [0, 2, 0],
-    "min_engine_version": [1, 19, 30]
+    "min_engine_version": [1, 20, 30]
   },
   "modules": [
     {
@@ -19,12 +19,8 @@
   ],
   "dependencies": [
     {
-      "module_name": "mojang-minecraft",
-      "version": "1.0.0-beta"
-    },
-    {
-      "module_name": "mojang-minecraft-ui",
-      "version": "1.0.0-beta"
+      "module_name": "@minecraft/server",
+      "version": "1.5.0"
     }
   ]
 }

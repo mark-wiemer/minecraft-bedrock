@@ -1,12 +1,13 @@
 import {
   Dimension,
   EntityHealthComponent,
-  EntityHurtEvent,
+  EntityHitEntityAfterEvent,
   Player,
   world,
-  BlockLocation,
   World,
-} from "mojang-minecraft";
+  Vector3,
+  system,
+} from "@minecraft/server";
 import { addonName } from "./config.js";
 import { trace, warn, say, zombieDied, attackingPlayerName, getPlayer, spawnZombie, tryTo } from "./utils";
 
@@ -51,8 +52,8 @@ const northWestRegionOffset = { x: Math.ceil(-map.width / 2), z: Math.ceil(-map.
 /** Filename of the structure to load in */
 const obstaclesStructId = "obstacles";
 const churchStructId = "church";
-/** Flag for obstacles struct */
-const obstaclesFlagId = "minecraft:obsidian";
+/** Name of block in obstacles structs */
+const obstaclesFlagBlockName = "minecraft:obsidian";
 
 /** side length of bounding square */
 const size = 16;
@@ -60,7 +61,7 @@ const size = 16;
 const structDelay = 10;
 
 const groundY = -60;
-const spawn = new BlockLocation(0, groundY, 0);
+const spawn = { x: 0, y: groundY, z: 0 };
 const obstaclesY = -62;
 let score = 0;
 let previousRegion = { x: 0, z: 0 };
@@ -76,7 +77,7 @@ const checkedRegions: Region[] = [];
  * Convert a block location to a command-friendly string representation
  * e.g. locToString({ x: 1, y: 2, z: 3 }) === "1 2 3"
  */
-const locToString = (loc: { x: number; y: number; z: number }): string => [loc.x, loc.y, loc.z].join(" ");
+const locToString = (loc: Vector3): string => [loc.x, loc.y, loc.z].join(" ");
 
 /**
  * Audit and run the command.
@@ -178,7 +179,7 @@ const tickRegion = (num: number, width: number, height: number): Region => {
   return { x: Math.floor(normalized / height), z: normalized % height };
 };
 
-const getStructLoc = (index: number): BlockLocation | null => {
+const getStructLoc = (index: number): Vector3 | null => {
   const { x, z } = tickRegion(index, map.width, map.depth);
   const regionOffset = { x: x + northWestRegionOffset.x, z: z + northWestRegionOffset.z };
   const structLoc = regionToLoc(regionOffset, obstaclesY);
@@ -193,21 +194,20 @@ const spawnStructure = (dim: Dimension, tickIndex: number): void => {
   const index = Math.floor(timeSinceStart / structDelay);
   const structLoc = getStructLoc(index);
   if (!structLoc) return;
-  addStruct(dim, structLoc, obstaclesFlagId, obstaclesStructId);
+  addStruct(dim, structLoc, obstaclesFlagBlockName, obstaclesStructId);
 };
 
-const addStruct = (dim: Dimension, loc: BlockLocation, flagId: string, structName: string): void => {
+const addStruct = (dim: Dimension, loc: Vector3, flagId: string, structName: string): void => {
   const rotations = [0, 90, 180, 270];
   const rotation = rotations[Math.floor(Math.random() * rotations.length)];
   if (!alreadySpawned(dim, loc, flagId))
     cmd(dim, `structure load ${structName} ${locToString(loc)} ${rotation}_degrees`);
 };
 
-const alreadySpawned = (dim: Dimension, loc: BlockLocation, blockId: string): boolean =>
-  dim.getBlock(loc).id === blockId;
+const alreadySpawned = (dim: Dimension, loc: Vector3, blockId: string): boolean =>
+  dim.getBlock(loc)?.permutation?.matches(blockId) ?? false;
 
-const regionToLoc = (region: Region, y: number): BlockLocation =>
-  new BlockLocation(region.x * size, y, region.z * size);
+const regionToLoc = (region: Region, y: number): Vector3 => ({ x: region.x * size, y, z: region.z * size });
 
 const coordToRegion = (num: number): number => Math.floor(num / size);
 
@@ -256,11 +256,11 @@ const mainTick = () => {
       previousRegion = currentRegion;
     }
     if (regionsToCheck.length) {
-      const region = regionsToCheck.shift() ?? { x: 0, z: 0 }; // `??` just to satisfy TS
+      const region = regionsToCheck.shift() ?? { x: 0, z: 0 };
       const newStructLoc = regionToLoc(region, obstaclesY);
       const structIds = [obstaclesStructId, churchStructId, "ring", "market", "graveyard"];
       const structToAdd = structIds[Math.floor(Math.random() * structIds.length)];
-      addStruct(overworld, newStructLoc, obstaclesFlagId, structToAdd);
+      addStruct(overworld, newStructLoc, obstaclesFlagBlockName, structToAdd);
     }
   }
 
@@ -302,6 +302,8 @@ const mainTick = () => {
   if (tickIndex % (5 * seconds) === 0) {
     spawnZombie(getPlayer(over(world)));
   }
+
+  system.run(mainTick);
 };
 
 const updateEquipment = (player: Player, score: number): void => {
@@ -332,17 +334,18 @@ const updateEquipment = (player: Player, score: number): void => {
   cmd(player.dimension, `give ${player.name} ${newEquipment}`);
 };
 
-const onEntityHurt = (hurtEvent: EntityHurtEvent): void => {
-  if (zombieDied(hurtEvent)) {
-    /** The name of the attacking player. If the attacker is not a player, this is nullish. */
-    const name: string = attackingPlayerName(hurtEvent);
+const onEntityHit = (hitEvent: EntityHitEntityAfterEvent): void => {
+  if (zombieDied(hitEvent)) {
+    /** The name of the attacking player. If the attacker is not a player, this is falsy. */
+    const name: string = attackingPlayerName(hitEvent);
     if (name) {
       score++;
       cmd(over(world), `scoreboard players set ${name} score ${score}`);
-      updateEquipment(hurtEvent.damagingEntity as Player, score);
+      updateEquipment(hitEvent.damagingEntity as Player, score);
     }
   }
 };
 
-world.events.tick.subscribe(mainTick);
-world.events.entityHurt.subscribe(onEntityHurt);
+system.run(mainTick);
+
+world.afterEvents.entityHitEntity.subscribe(onEntityHit);

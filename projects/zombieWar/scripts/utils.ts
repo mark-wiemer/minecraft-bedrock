@@ -1,13 +1,13 @@
 import {
-  Location as mcLocation, // separate from default JS Location
   Dimension,
   Entity,
   EntityHealthComponent,
-  EntityHurtEvent,
+  EntityHitEntityAfterEvent,
   EntityQueryOptions,
   Player,
+  Vector3,
   world,
-} from "mojang-minecraft";
+} from "@minecraft/server";
 import { addonName, shouldTrace, shouldWarn } from "./config";
 
 /** Shorthand for `world.getDimension("overworld").runCommand("say" + message)` */
@@ -53,12 +53,12 @@ export const isZombie = (entity: Pick<Entity, "id">): boolean => {
   return false;
 };
 
-export const zombieDied = (hurtEvent: EntityHurtEvent): boolean => {
-  const victim = hurtEvent.hurtEntity;
+export const zombieDied = (hitEvent: EntityHitEntityAfterEvent): boolean => {
+  const victim = hitEvent.hitEntity;
 
   let victimHealth = NaN;
   try {
-    victimHealth = (victim.getComponent("minecraft:health") as EntityHealthComponent).current;
+    victimHealth = (victim.getComponent("minecraft:health") as EntityHealthComponent).currentValue;
   } catch {
     warn(`Couldn't get hurt entity health`);
   }
@@ -66,10 +66,10 @@ export const zombieDied = (hurtEvent: EntityHurtEvent): boolean => {
   return victimHealth <= 0 && isZombie(victim);
 };
 
-/** Returns name of player that dealt killing blow, else empty string. */
-export const attackingPlayerName = (hurtEvent: EntityHurtEvent): string => {
+/** Returns name of player that caused the hurt event. If the event wasn't caused by a player, returns empty string. */
+export const attackingPlayerName = (hitEvent: EntityHitEntityAfterEvent): string => {
   try {
-    return (hurtEvent.damagingEntity as Player)?.name;
+    return (hitEvent.damagingEntity as Player)?.name;
   } catch {
     return "";
   }
@@ -87,23 +87,26 @@ export const getPlayer = (dim: Dimension): Player =>
     `Failed to find player`
   );
 
-export const getZombieLoc = (player: Player): mcLocation => {
+/** A position behind the player but on their level, ideal for spawning a new zombie. */
+export const getZombieSpawnLoc = (player: Player): Vector3 => {
   const distance = 5;
   /** Radians per degree, used like `sin(90 * degrees) === 1` */
   const degrees = Math.PI / 180;
   /** 0 = north: +Z, 90 = east: -X, 180/-180 = south: -Z, -90 = west: +X */
-  const angle = player.rotation.y;
+  const angle = 0;
+  // TODO fixup rotation calculation
+  // const angle = player.rotation.y;
   const xOffset = Math.sin(angle * degrees) * distance;
   const zOffset = -Math.cos(angle * degrees) * distance;
   const playerPos = pPos(player);
-  const zLoc = new mcLocation(playerPos.x + xOffset, playerPos.y, playerPos.z + zOffset);
+  const zLoc = { x: playerPos.x + xOffset, y: playerPos.y, z: playerPos.z + zOffset };
   return zLoc;
 };
 
-export const pPos = (player: Player): mcLocation =>
+export const pPos = (player: Player): Vector3 =>
   tryTo((player: Player) => player.location, [player], "Failed to get player location");
 
 /** Spawn a zombie 10 blocks above the player. Watch out! */
 export const spawnZombie = (player: Player) => {
-  player.dimension.spawnEntity("minecraft:zombie", getZombieLoc(player));
+  player.dimension.spawnEntity("minecraft:zombie", getZombieSpawnLoc(player));
 };
