@@ -27,7 +27,17 @@ export const warn = (x: string): void => {
 
 /** Prefix `x` with error label, then say `x` */
 export const err = (x: string): void => {
-  say(`[ERR ${addonName}]: ${x}`);
+  console.warn(`[ERR ${addonName}]: ${x}`);
+};
+
+/** Executes a callback safely, returning the fallback value if the callback throws an error. */
+export const doSafely = <T extends any[], R>(callback: (...args: T) => R, args: T, fallback: R, msg: string): R => {
+  try {
+    return callback(...args);
+  } catch (e) {
+    err(msg);
+    return fallback;
+  }
 };
 
 /**
@@ -95,13 +105,20 @@ export const getPlayer = (dim: Dimension): Player =>
 export const getZombieSpawnLoc = (player: Player): Vector3 => {
   const distance = 5;
   /** Radians per degree, used like `sin(90 * degrees) === 1` */
-  const degrees = Math.PI / 180;
-  /** 0 = north: +Z, 90 = east: -X, 180/-180 = south: -Z, -90 = west: +X */
-  const angle = 0;
-  // TODO fixup rotation calculation
-  // const angle = player.rotation.y;
-  const xOffset = Math.sin(angle * degrees) * distance;
-  const zOffset = -Math.cos(angle * degrees) * distance;
+  const viewDirection = doSafely(
+    (player) => player.getViewDirection(),
+    [player],
+    { x: 0, y: 0, z: 0 },
+    "Couldn't get player view direction"
+  );
+  /** The 2D dimension where positive is east */
+  const normX = viewDirection.x;
+  /** The other 2D dimension, where positive is north. Don't think about it too much. */
+  const normY = -viewDirection.z;
+  /** Player's view direction in radians. 90 = north/-Z, 0 = east/+X, -90 = south/+Z, +-180 = west/-X */
+  const viewAngle = Math.atan2(normY, normX);
+  const xOffset = -Math.cos(viewAngle) * distance;
+  const zOffset = Math.sin(viewAngle) * distance;
   const playerPos = pPos(player);
   const zLoc = { x: playerPos.x + xOffset, y: playerPos.y, z: playerPos.z + zOffset };
   return zLoc;
@@ -110,7 +127,7 @@ export const getZombieSpawnLoc = (player: Player): Vector3 => {
 export const pPos = (player: Player): Vector3 =>
   tryTo((player: Player) => player.location, [player], "Failed to get player location");
 
-/** Spawn a zombie 10 blocks above the player. Watch out! */
+/** Spawn a zombie 5 blocks behind the player. Watch out! */
 export const spawnZombie = (player: Player) => {
   player.dimension.spawnEntity("minecraft:zombie", getZombieSpawnLoc(player));
 };
