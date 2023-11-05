@@ -11,7 +11,7 @@ Install the [prerequisites](https://learn.microsoft.com/en-us/minecraft/creator/
 1. Copy this folder
 1. Open a terminal and navigate to this folder
 1. Replace **`__todo__`** values:
-   1. Folder named `behavior_packs/__todo__` should change to your add-on name, e.g. `behavior_packs/marble`
+   1. Folder named `behavior_packs/__todo__` should change to your add-on name, e.g. `behavior_packs/cotta`
    1. [`gulpfile.js`](./gulpfile.js) should match add-on name
    1. [`manifest.json`](./behavior_packs/__todo__/manifest.json)
       1. `name` is how the name appears in Minecraft, e.g. `Cotta Game`
