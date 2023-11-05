@@ -299,7 +299,7 @@ const mainTick = () => {
   }
 
   // Spawn zombie every few seconds
-  if (tickIndex % (5 * seconds) === 0) {
+  if (tickIndex > informPlayerTime && tickIndex % (5 * seconds) === 0) {
     spawnZombie(getPlayer(over(world)));
   }
 
@@ -308,7 +308,7 @@ const mainTick = () => {
 
 const updateEquipment = (player: Player, score: number): void => {
   const equipmentScores: Record<number, string> = {
-    1: "poisonous_potato",
+    1: "wooden_sword",
     2: "leather_boots",
     3: "leather_helmet",
     5: "cooked_chicken",
