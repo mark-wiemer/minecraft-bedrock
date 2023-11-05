@@ -38,7 +38,7 @@ Explore the repo to find which pack is used for each bit of work. Also explore t
 - [Using TypeScript](https://learn.microsoft.com/en-us/minecraft/creator/documents/scriptinggettingstarted) instead of JavaScript, Molang, mcfunction, or JSON. See [Project Cotta](./projects/archive/cotta/README.md)
 - Getting a custom TS pack to update when player leaves and rejoins the game. See [Project Smooth Stone](./projects/archive/smoothStone/README.md)
 - Mastering the project initialization process. See [Project Marble](./projects/archive/marble/README.md)
-- Awesome Zombie Fighting add-on! See [Project Z-War](./projects/archive/zombieWar/README.md)
+- Awesome Zombie Fighting add-on! See [Project Z-War](./projects/zombieWar/README.md)
 - Learn how to use [Regolith](https://github.com/Bedrock-OSS/regolith). See [Project Hello Regolith](./projects/archive/helloRegolith)
 
 ### Current work
