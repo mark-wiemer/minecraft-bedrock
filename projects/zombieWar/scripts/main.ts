@@ -55,9 +55,9 @@ const churchStructId = "church";
 /** Name of block in obstacles structs */
 const obstaclesFlagBlockName = "minecraft:obsidian";
 
-/** side length of bounding square */
+/** Side length of a region */
 const size = 16;
-/** delay in ticks between each struct creation */
+/** Delay in ticks between each struct creation */
 const structDelay = 10;
 
 const groundY = -60;
